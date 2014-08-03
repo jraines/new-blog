@@ -133,3 +133,5 @@ Heroku app when it's time to process the upload, in the background.
 
 Hopefully, these tips will save you some time, money, and headaches as your grow
 your app on the Heroku platform.
+
+---
