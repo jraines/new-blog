@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <link href="/stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Jeremy Raines - Heroku Cost Optimization for Rails Apps</title>
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+  </head>
+  <body>
+    <div id="main" role="main">
+      <h1>Heroku Cost Optimization for Rails Apps</h1>
+
+<p>If you&rsquo;re thinking about choosing (or have already chosen) Heroku for your Rails
+application, you probably already know that their well-designed platform,
+developer tools, documentation, and rich add-on ecosystem will save you lots of
+money in devops time.  The tradeoff, of course, is more of your money going to
+Heroku as you add more dynos as your app grows, and pay for more third-pary
+addons.  This article will offer a few tips for keeping those costs down while
+maintaining app performance and agility.</p>
+
+<h2>Use a web server that can process requests concurrently</h2>
+
+<p>An out-of-the-box Rails app on Heroku will process one request at a time.
+Because Heroku uses <a href="https://devcenter.heroku.com/articles/http-routing#request-distribution">random request
+routing</a>,
+if a request goes to a dyno which is busy, it will be queued, and the user will
+experience decreased responsiveness from your app.</p>
+
+<p>With a concurrent web server like Unicorn, your dynos can process multiple
+requests simultaneously. With a little experimentation (perhaps with load
+testing from <a href="https://www.blitz.io">blitz.io</a> and monitoring via <a href="http:/www.newrelic.com">New
+Relic</a> &ndash; both available as Heroku add-ons), you&rsquo;ll
+determine the right number of unicorn processes to run per dyno for your app&rsquo;s
+needs.</p>
+
+<p>An increasingly popular server choice is
+<a href="https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server">Puma</a>,
+which also allows concurrent requests, but can also scale out via threads in
+addition to worker process. Your app must be thread-safe to take advantage of
+that capability.</p>
+
+<h2>Experiment with different dyno size options</h2>
+
+<p>A standard Heroku dyno comes with 512mb of RAM. When using a multi-process or
+multi-threaded server solution, you&rsquo;ll be loading multiple copies of your Rails
+environment into memory.  However, there&rsquo;s a baseline footprint and some
+possible optimzations (which we&rsquo;ll get to), which means that you may get more
+value by running more worker processes on a smaller number of higher-memory
+dynos, versus a smaller number of workers spread across many standard dynos.</p>
+
+<p>A new option from Heroku is their <a href="https://blog.heroku.com/archives/2014/2/3/heroku-xl">XL
+dyno</a>, which is equivalent
+to 12x a standard dyno. The potential &ldquo;faster and more consistent response
+times&rdquo; is tempting if you&rsquo;re in this usage range, but offers less elasticity in
+your scaling (and, therefore, your montly bill).</p>
+
+<h2>Use a dyno manager to scale down in off-peak times</h2>
+
+<p>With New Relic and other performance monitoring tools, it&rsquo;s not particularly
+hard to write a script that will monitor your app&rsquo;s usage and scale your dyno
+numbers up or down accordingly. However, because of its low price and
+configuration options, we use <a href="http://www.hirefire.io">hirefire.io</a> for
+this, and it has saved us a considerable amount of money.  We set more aggresive
+downscaling thresholds for our non-production environments for additional
+savings. Update: I recommend using a fairly tolerant threshold for scaling up if
+you connect this to New Relic and base it on Apdex score.</p>
+
+<h2>Reduce number of background workers with Sidekiq or Queue Classic</h2>
+
+<p>As most apps grow, they build up quite a large repertoire of tasks that need to
+be performed outside of the web request/response cycle.  Many Rails apps use
+Resque for this, and eventually need to run multiple worker processes to consume
+their background job queues.  It&rsquo;s easy to forget about these workers chugging
+away in the background, pumping up your monthly bill.</p>
+
+<p>There are a few options to save money here.  With Ryan Smith&rsquo;s
+<a href="https://github.com/ryandotsmith/queue_classic">queue_classic</a>, a fast
+database-backed queue and worker system, you could eliminate the potentially
+expensive Redis dependency altogether.</p>
+
+<p>For an easy transition and greater throughput, try Mike Pernham&rsquo;s
+<a href="http://sidekiq.org">Sidekiq</a>, which takes advantage of a multithreaded,
+actor-based architecture for increased performance.  According to Mike, he &ldquo;took
+one large Resque farm from 68GB of RAM to 1GB of RAM by using threads instead of
+processes.&rdquo;</p>
+
+<h2>Reduce number of expensive add-ons</h2>
+
+<p>This point will likely change due to competition within the Heroku add-on
+ecosystem, but we&rsquo;ve gotten a few wins by leveraging our existing, required
+Heroku infrastructure to fill certain needs in lieu of a dedicated add-on.</p>
+
+<ol>
+<li>Generally prefer memcached to Redis</li>
+<li>Prefer the database to Redis for anything that isn&rsquo;t essentially caching</li>
+<li>If search is a feature of your app, but not central to it, leverage Postgres
+or Mongo&rsquo;s native full-text search capabilities instead of a hosted search
+service</li>
+</ol>
+
+<h2>Reduce the number of requests to your app for static assets</h2>
+
+<p>At minimum, you should be <a href="https://devcenter.heroku.com/articles/rack-cache-memcached-rails31">using Rack::Cache and
+memcached</a>
+to cache requests for static assets such as files, images, and scripts.</p>
+
+<p>The next step is to not serve your assets from your app servers at all, but via
+Amazon S3.  We use the <a href="https://github.com/rumblelabs/asset_sync">asset_sync
+gem</a> for this, which has been
+excellent except for the increased time taken by each deploy (about 5 minutes,
+for us).</p>
+
+<p>The final step is to also place a CDN, such as Cloudfront, in front of those S3
+assets.  Heroku has <a href="https://devcenter.heroku.com/articles/using-amazon-cloudfront-cdn">a guide for
+this</a>, but I
+would add a bit of warning:</p>
+
+<p>If want to use SSL and have the assets served from domain (for example,
+assets.smashingmagazine.com), the cost of setting that up with Cloudfront is
+$600 per month.  And if you don&rsquo;t do it, be prepared to hack around things like
+strict browser rules for cross-origin policy on webfonts, or putting CORS rules
+in place for certain assets and making sure that those CORS headers are cached
+with the Cloudfront response.</p>
+
+<h2>Avoid tying up dynos with file uploads</h2>
+
+<p>Even if you&rsquo;re using a concurrent web server, your users&#39; requests can still get
+stuck behind others if some of your requests take a lot longer than others.  The
+most common case for this is file uploads. Ideally, you can use a solution like
+<a href="https://github.com/dwilkie/carrierwave_direct">CarrierWave Direct</a> or
+<a href="https://www.transloadit.com">Transloadit</a> to route these around your Heroku
+dynos and perform any post-processing outside of the request as well.</p>
+
+<p>Because we need to accept uploads from mobile users, we built a separate node.js
+server for handling uploads, which talks directly to S3 and then notifies our
+Heroku app when it&rsquo;s time to process the upload, in the background.</p>
+
+<p>Hopefully, these tips will save you some time, money, and headaches as your grow
+your app on the Heroku platform.</p>
+
+    </div>
+  </body>
+</html>
