@@ -11,14 +11,6 @@
   <body>
     <div id="main" role="main">
       <%= yield %>
-      <aside>
-        <h2>Articles</h2>
-        <ul>
-          <% blog.articles[0...10].each do |article| %>
-            <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
-          <% end %>
-        </ul>
-      </aside>
     </div>
   </body>
 </html>

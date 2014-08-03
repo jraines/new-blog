@@ -4,7 +4,10 @@ date: 2014-05-10
 tags: heroku
 ---
 
-# Tips for getting the most out of Heroku
+
+# Heroku Cost Optimization for Rails Apps
+
+<p id="byline">by Jeremy Raines</p>
 
 If you're thinking about choosing (or have already chosen) Heroku for your Rails
 application, you probably already know that their well-designed platform,
@@ -129,9 +132,6 @@ Because we need to accept uploads from mobile users, we built a separate node.js
 server for handling uploads, which talks directly to S3 and then notifies our
 Heroku app when it's time to process the upload, in the background.
 
-------
-
 Hopefully, these tips will save you some time, money, and headaches as your grow
 your app on the Heroku platform.
 
----
