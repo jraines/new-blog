@@ -14,6 +14,7 @@ $violet:    #6c71c4
 $blue:      #268bd2
 $cyan:      #2aa198
 $green:     #859900
+$photo:     "/images/jr.png"
 
 *
   margin: 0
@@ -27,6 +28,31 @@ body
   color: black
   font-size: 19px
   line-height: 28px
+
+a
+  i
+    font-size: 28px
+    transition: color 0.2s ease
+
+  i.fa-github
+    color: black
+
+  i.fa-twitter
+    color: $blue
+
+  i:hover
+    color: $yellow
+
+#bio-photo
+  display: inline-block
+  vertical-align: middle
+  height: 80px
+  width: 80px
+  border-radius: 40px
+  -webkit-border-radius: 40px
+  -moz-border-radius: 40px
+  background: url($photo) center center no-repeat
+  background-size: 80px
 
 #byline
   font-style: italic
@@ -97,6 +123,12 @@ p
     color: $cyan
     font-size: 18px
     padding: 15px 0 20px 0
+
+  h4
+    font-family: Arial, sans-serif
+    color: $violet
+    font-size: 22px
+    padding: 16px 0 0 0
 
   ul
     margin: 24px 0 24px 0

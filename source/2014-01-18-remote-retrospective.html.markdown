@@ -6,8 +6,6 @@ tags: remote
 
 #A Retrospective on Two Years in a Startup as a Remote Developer
 
-<p id="byline">by Jeremy Raines</p>
-
 Tomorrow morning, I’ll board a flight from LAX to JFK with a wardrobe woefully ill-equipped, in both style and thermal insulation, for New York City, and this will mark the end of 2 years working with, and later leading, a startup engineering team from the comfort of my home.
 
 I want to share my thoughts on this experience. As always, your mileage may vary.

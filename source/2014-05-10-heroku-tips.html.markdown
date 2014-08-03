@@ -1,13 +1,11 @@
 ---
-title: Heroku Cost Optimization
+title: Heroku Cost Optimization for Rails Apps
 date: 2014-05-10
 tags: heroku
 ---
 
 
 # Heroku Cost Optimization for Rails Apps
-
-<p id="byline">by Jeremy Raines</p>
 
 If you're thinking about choosing (or have already chosen) Heroku for your Rails
 application, you probably already know that their well-designed platform,
