@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <link href="../../../stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/main.css" rel="stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Jeremy Raines - Useful Bash Lines</title>
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+  </head>
+  <body>
+    <div id="main" role="main">
+      <h1>Useful Bash One Liners</h1>
+
+<p>Delete files older than 7 days</p>
+<pre><code class="highlight shell">find /your_directory -mtime +7 -exec rm -f <span class="o">{}</span> <span class="se">\;</span>
+</code></pre>
+
+<p>Find largest 10 files in directory. <a href="http://explainshell.com/explain?cmd=du+-hsx+*+%7C+sort+-rh+%7C+head+-10">Explanation</a></p>
+<pre><code class="highlight shell">du -hsx <span class="k">*</span> | sort -rh | head -10
+</code></pre>
+
+<p>Get specific columns from a csv and display in columns.  Here, the first column and sixth through tenth:</p>
+<pre><code class="highlight shell">cut -d <span class="s2">","</span> -f 1,6-10 example.csv | column -t -s<span class="s1">','</span>
+</code></pre>
+
+<p>Sort a csv by a number in the fifth field</p>
+<pre><code class="highlight shell">sort -n -k5 items.csv
+</code></pre>
+
+<p>Average the 5th column of a file, but only consider rows where that column is greater than 150</p>
+<pre><code class="highlight shell">awk -F, <span class="s1">' $5 &gt; 150 {n++; sum+=$5} END{ print sum/n}'</span> items.csv
+</code></pre>
+
+    </div>
+  </body>
+</html>

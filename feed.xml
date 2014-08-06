@@ -5,10 +5,42 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2014-05-09T20:00:00-04:00</updated>
+  <updated>2014-08-04T20:00:00-04:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Useful Bash Lines</title>
+    <link rel="alternate" href="http://blog.url.com/2014/08/05/useful-bash-lines.html"/>
+    <id>http://blog.url.com/2014/08/05/useful-bash-lines.html</id>
+    <published>2014-08-04T20:00:00-04:00</published>
+    <updated>2014-08-06T00:31:53-04:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Useful Bash One Liners&lt;/h1&gt;
+
+&lt;p&gt;Delete files older than 7 days&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight shell"&gt;find /your_directory -mtime +7 -exec rm -f &lt;span class="o"&gt;{}&lt;/span&gt; &lt;span class="se"&gt;\;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Find largest 10 files in directory. &lt;a href="http://explainshell.com/explain?cmd=du+-hsx+*+%7C+sort+-rh+%7C+head+-10"&gt;Explanation&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight shell"&gt;du -hsx &lt;span class="k"&gt;*&lt;/span&gt; | sort -rh | head -10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get specific columns from a csv and display in columns.  Here, the first column and sixth through tenth:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight shell"&gt;cut -d &lt;span class="s2"&gt;","&lt;/span&gt; -f 1,6-10 example.csv | column -t -s&lt;span class="s1"&gt;','&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sort a csv by a number in the fifth field&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight shell"&gt;sort -n -k5 items.csv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Average the 5th column of a file, but only consider rows where that column is greater than 150&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight shell"&gt;awk -F, &lt;span class="s1"&gt;' $5 &amp;gt; 150 {n++; sum+=$5} END{ print sum/n}'&lt;/span&gt; items.csv
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>Heroku Cost Optimization for Rails Apps</title>
     <link rel="alternate" href="http://blog.url.com/2014/05/10/heroku-tips.html"/>
