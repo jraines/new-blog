@@ -5,28 +5,56 @@
   box-sizing: border-box; }
 
 /* line 24, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+#name {
+  display: inline-block; }
+
+/* line 27, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+#icons {
+  display: inline-block;
+  margin-left: 40px; }
+
+/* line 31, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 body {
   font-family: "Varela Round", Arial, sans-serif;
   background: #fdf6e3;
   color: black;
-  font-size: 19px;
+  font-size: 16px;
   line-height: 28px; }
 
-/* line 33, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 40, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i {
   font-size: 28px;
   transition: color 0.2s ease; }
-/* line 37, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 44, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i.fa-github {
   color: black; }
-/* line 40, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 47, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i.fa-twitter {
   color: #268bd2; }
-/* line 43, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+
+/* line 51, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+body {
+  font-family: "Varela Round", Arial, sans-serif;
+  background: #fdf6e3;
+  color: black;
+  font-size: 16px;
+  line-height: 28px; }
+
+/* line 60, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+a i {
+  font-size: 28px;
+  transition: color 0.2s ease; }
+/* line 64, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+a i.fa-github {
+  color: black; }
+/* line 67, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+a i.fa-twitter {
+  color: #268bd2; }
+/* line 70, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i:hover {
   color: #b58900; }
 
-/* line 46, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 73, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 #bio-photo {
   display: inline-block;
   vertical-align: middle;
@@ -38,37 +66,36 @@ a i:hover {
   background: url("/images/jr.png") center center no-repeat;
   background-size: 80px; }
 
-/* line 57, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 84, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 #byline {
   font-style: italic;
   text-align: center;
   padding: 10px 0 25px 0; }
-  /* line 61, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 88, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #byline a {
     font-style: normal; }
 
-/* line 64, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 91, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 p {
-  margin-bottom: 10px; }
+  margin-bottom: 26px; }
 
-/* line 67, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 94, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 .highlight {
   display: inline-block;
   padding: 10px;
   margin: 5px 0 15px 0;
-  background: #fae7b3;
+  background: #fbebc2;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; }
 
-/* line 76, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 103, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 #main {
-  width: 760px;
+  width: 625px;
   margin: auto;
   margin-top: 20px;
-  width: 760px;
   padding: 10px; }
-  /* line 83, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 109, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main blockquote {
     font-style: italic;
     color: black;
@@ -79,7 +106,7 @@ p {
     border-bottom: thin solid darkgoldenrod;
     margin-top: 5px;
     margin-bottom: 24px; }
-    /* line 97, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+    /* line 120, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
     #main blockquote .attribution {
       font-weight: bold;
       display: inline-block;
@@ -87,41 +114,44 @@ p {
       width: 100%;
       font-size: 16px;
       padding-right: 10px; }
-    /* line 106, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+    /* line 128, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
     #main blockquote p {
       margin-bottom: 0; }
-  /* line 109, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 131, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main h1 {
     color: #cb4b16;
-    font-family: Arial, sans-serif;
     font-size: 32px;
     padding: 18px 0 22px 0;
     line-height: 1.2em;
     font-weight: bold; }
-  /* line 117, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 138, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main h2 {
-    font-family: Arial, sans-serif;
     color: #6c71c4;
     font-size: 26px;
     padding: 24px 0 28px 0; }
-  /* line 123, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 143, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main h3 {
-    font-family: Arial, sans-serif;
     color: #2aa198;
     font-size: 18px;
     padding: 15px 0 20px 0; }
-  /* line 129, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 148, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main h4 {
-    font-family: Arial, sans-serif;
     color: #6c71c4;
     font-size: 22px;
     padding: 16px 0 0 0; }
-  /* line 135, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 153, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main ul {
     margin: 24px 0 24px 0;
     list-style-position: inside;
     font-size: 18px; }
+    /* line 158, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+    #main ul li {
+      margin-bottom: 26px; }
+  /* line 162, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  #main ul.articles li {
+    margin-bottom: 4px;
+    font-size: 16px; }
 
-/* line 141, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 167, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 footer {
   clear: both; }

@@ -5,16 +5,43 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2014-08-04T20:00:00-04:00</updated>
+  <updated>2014-08-09T20:00:00-04:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Juxt for custom map accessors</title>
+    <link rel="alternate" href="http://blog.url.com/2014/08/10/juxt-for-custom-map-accessors.html"/>
+    <id>http://blog.url.com/2014/08/10/juxt-for-custom-map-accessors.html</id>
+    <published>2014-08-09T20:00:00-04:00</published>
+    <updated>2014-08-10T22:50:05-04:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Juxt for custom map accessors&lt;/h1&gt;
+
+&lt;p&gt;Let&amp;rsquo;s say we have a map like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ppl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[{&lt;/span&gt;&lt;span class="no"&gt;:name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"Jeremy"&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="no"&gt;:age&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:job&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"programmer"&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+          &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="no"&gt;:name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"Grace"&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="no"&gt;:age&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:job&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"designer"&lt;/span&gt;&lt;span class="p"&gt;}])&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If I wanted to grab just the name and age from it, I could write:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;#&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;vector&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;get&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;%&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;get&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;%&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:age&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ppl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But with &lt;code&gt;juxt&lt;/code&gt; I can do:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;#&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;juxt&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:age&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ppl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Hat tip to &lt;a href="https://tbaldridge.pivotshare.com/media/function-of-the-day-juxt/11920"&gt;Tim Baldridge for this example&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Useful Bash Lines</title>
     <link rel="alternate" href="http://blog.url.com/2014/08/05/useful-bash-lines.html"/>
     <id>http://blog.url.com/2014/08/05/useful-bash-lines.html</id>
     <published>2014-08-04T20:00:00-04:00</published>
-    <updated>2014-08-06T00:31:53-04:00</updated>
+    <updated>2014-08-11T22:44:52-04:00</updated>
     <author>
       <name>Article Author</name>
     </author>
