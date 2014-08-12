@@ -21,12 +21,39 @@ $photo:     "/images/jr.png"
   padding: 0
   box-sizing: border-box
 
+#name
+  display: inline-block
+
+#icons
+  display: inline-block
+  margin-left: 40px
+
 body
   font-family: 'Varela Round', Arial, sans-serif
   background: #FDF6E3
   //color: darken(#657B83, 5%)
   color: black
-  font-size: 19px
+  font-size: 16px
+  line-height: 28px
+
+a
+  i
+    font-size: 28px
+    transition: color 0.2s ease
+
+  i.fa-github
+    color: black
+
+  i.fa-twitter
+    color: $blue
+
+  i:hover
+body
+  font-family: 'Varela Round', Arial, sans-serif
+  background: #FDF6E3
+  //color: darken(#657B83, 5%)
+  color: black
+  font-size: 16px
   line-height: 28px
 
 a
@@ -62,33 +89,29 @@ a
     font-style: normal
 
 p
-  margin-bottom: 10px
+  margin-bottom: 26px
 
 .highlight
   display: inline-block
   padding: 10px
   margin: 5px 0 15px 0
-  background: darken(#FDF6E3, 10%)
+  background: darken(#FDF6E3, 7%)
   -webkit-border-radius: 6px
   -moz-border-radius: 6px
   border-radius: 6px
 
 #main
-  width: 760px
+  width: 625px
   margin: auto
   margin-top: 20px
-  width: 760px
   padding: 10px
 
   blockquote
-    //font-family: Arial, sans-serif
     font-style: italic
     color: black
-    //text-align: center
     font-size: 20px
     padding: 12px
     line-height: 30px
-    //background: #EDEDED
     border-top: thin solid darkgoldenrod
     border-bottom: thin solid darkgoldenrod
     margin-top: 5px
@@ -97,7 +120,6 @@ p
     .attribution
       font-weight: bold
       display: inline-block
-      //float: right
       text-align: right
       width: 100%
       font-size: 16px
@@ -108,26 +130,22 @@ p
 
   h1
     color: $orange
-    font-family: Arial, sans-serif
     font-size: 32px
     padding: 18px 0 22px 0
     line-height: 1.2em
     font-weight: bold
 
   h2
-    font-family: Arial, sans-serif
     color: $violet
     font-size: 26px
     padding: 24px 0 28px 0
 
   h3
-    font-family: Arial, sans-serif
     color: $cyan
     font-size: 18px
     padding: 15px 0 20px 0
 
   h4
-    font-family: Arial, sans-serif
     color: $violet
     font-size: 22px
     padding: 16px 0 0 0
@@ -136,6 +154,14 @@ p
     margin: 24px 0 24px 0
     list-style-position: inside
     font-size: 18px
+
+    li
+      margin-bottom: 26px
+
+  ul.articles
+    li
+      margin-bottom: 4px
+      font-size: 16px
 
 
 footer

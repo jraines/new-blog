@@ -1,7 +1,7 @@
 ---
 title: Useful Bash Lines
 date: 2014-08-05
-tags: bash
+tags: bash, chain
 ---
 
 #Useful Bash One Liners
