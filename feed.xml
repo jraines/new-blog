@@ -5,10 +5,301 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2014-08-09T20:00:00-04:00</updated>
+  <updated>2014-09-13T12:28:00-04:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Deploying a Microservice With Ansible</title>
+    <link rel="alternate" href="http://blog.url.com/2014/09/13/deploying-a-microservice-with-ansible.html"/>
+    <id>http://blog.url.com/2014/09/13/deploying-a-microservice-with-ansible.html</id>
+    <published>2014-09-13T12:28:00-04:00</published>
+    <updated>2014-09-13T14:52:10-04:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;Deploying a Microservice With Ansible&lt;/h1&gt;
+
+&lt;h2&gt;The Problem&lt;/h2&gt;
+
+&lt;p&gt;Some time ago, happily tending our app behind the tall walls of Heroku-town,
+we faced a problem: long-running requests to a Heroku dyno block it
+(or at least one process on the dyno) from processing any further requests, but
+Heroku&amp;rsquo;s router may still send requests to that dyno, resulting in timeouts.&lt;/p&gt;
+
+&lt;p&gt;Our app processes image uploads from both web and mobile clients, and does some
+thumbnailing of the images, so direct to S3 uploads were not an option and
+we needed a server to handle these uploads outside of Heroku.&lt;/p&gt;
+
+&lt;h2&gt;The Quick Fix&lt;/h2&gt;
+
+&lt;p&gt;One of our engineers whipped up a Node.js app which would:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Accept a file upload&lt;/li&gt;
+&lt;li&gt;Mimic the thumbnailing processes performed by Paperclip on our Rails app&lt;/li&gt;
+&lt;li&gt;Send the files to S3&lt;/li&gt;
+&lt;li&gt;Call back to the Rails app with the image metadata, so we could create an
+Image record on the server&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Everything worked nicely and we stopped seeing timeouts on our Rails app.&lt;/p&gt;
+
+&lt;h2&gt;The Problems With The Fix&lt;/h2&gt;
+
+&lt;p&gt;Everyone on our team at the time had some basic knowledge of Node and
+intermediate Linux admin skill. But since these image uploads were critical
+to our user experience, intermediate was not enough.  Any bug with this service
+was potentially critical, so any botched configurations &amp;ndash; whether they were
+the bug or part of someone&amp;rsquo;s attempt to fix a bug &amp;ndash; could have quite a negative
+impact.  So config files became scary to touch, and we wanted to carefully
+monitor the service for some time after any change to these&lt;/p&gt;
+
+&lt;p&gt;Deployment was also not fully automated, so if anyone forgot a step, it could
+result in bugs.&lt;/p&gt;
+
+&lt;h2&gt;The Ideal Solution&lt;/h2&gt;
+
+&lt;p&gt;After some high stress bugfixes and unacceptably long outages, we came up with
+a list of requirements (a few of which had been satisfied by the original developer,
+hence the config files I mentioned). The service should:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Be easy to deploy to either a running instance or a clean box.&lt;/li&gt;
+&lt;li&gt;Bring itself back up if it failed.&lt;/li&gt;
+&lt;li&gt;Manage its logs.&lt;/li&gt;
+&lt;li&gt;Allow for easy restoration of any config files modified during troubleshooting.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The tool we chose for this (and more, detailed below) was Ansible. &lt;a href="https://serversforhackers.com/editions/2014/08/26/getting-started-with-ansible/"&gt;Here&amp;rsquo;s the best
+introductory guide I&amp;rsquo;ve seen&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;d like to highlight a few excerpts from our Ansible playbook, because while this is
+not a full tutorial and far from a &amp;ldquo;best practices&amp;rdquo;
+guide, it does cover a few things that might get left out of other beginner level guides.&lt;/p&gt;
+
+&lt;h2&gt;Ansible tips&lt;/h2&gt;
+
+&lt;h3&gt;Installing updated packages&lt;/h3&gt;
+
+&lt;p&gt;Install versions of nginx and node that were relased after, say, the closing
+of the Western frontier:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;playbook.yml&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight yaml"&gt;
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;Package prerequisites for node.js&lt;/span&gt;
+      &lt;span class="s"&gt;action&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;apt pkg=python-software-properties state=installed&lt;/span&gt;
+
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;Add the node.js PPA&lt;/span&gt;
+      &lt;span class="s"&gt;apt_repository&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;repo="ppa:chris-lea/node.js"&lt;/span&gt;
+
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;Add the nginx PPA&lt;/span&gt;
+      &lt;span class="s"&gt;apt_repository&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;repo="ppa:nginx/stable"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Installing and configuring upstart&lt;/h3&gt;
+
+&lt;p&gt;Install upstart, which allows you to easily start and stop processes, and check
+their status, like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight shell"&gt;sudo image-manager status
+sudo image-manager restart
+sudo image-manager stop
+sudo image-manager start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href="http://upstart.ubuntu.com/cookbook"&gt;The docs are thorough if a bit intimidating&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;playbook.yml&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight yaml"&gt;    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;install upstart&lt;/span&gt;
+      &lt;span class="s"&gt;apt&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;pkg=upstart state=latest&lt;/span&gt;
+
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;(PROD) copy upstart config file to /etc/init&lt;/span&gt;
+      &lt;span class="s"&gt;copy&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;src=config/image-manager.conf&lt;/span&gt;
+            &lt;span class="s"&gt;dest=/etc/init/image-manager.conf&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The config file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight plaintext"&gt;#!upstart
+description "Image Manager Production App"
+
+start on startup
+stop on shutdown
+console output
+
+#Important: this means upstart will expect the process it is
+#managing to call `fork` exactly twice.  For our app, I
+#distinguished between this and "expect fork" by trial and error
+#
+#see http://upstart.ubuntu.com/cookbook/#expect-daemon
+
+expect daemon
+
+script
+  export HOME="/home/ubuntu"
+  cd $HOME/image-manager
+  sudo NODE_ENV=production \
+       PORT=5555 \
+       /usr/bin/node /home/ubuntu/image-manager/app.js &amp;gt;&amp;gt; \
+       /var/log/image-manager.log &amp;amp;
+end script
+
+#Upstart has to know about the process id of all the processes it monitors
+#This is the only way I could find to get that
+
+post-start script
+  upstart_pid=$(status image-manager | awk '{print $NF}')
+  sudo echo $upstart_pid &amp;gt; /var/run/image-manager.pid
+end script
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Installing ntpd&lt;/h3&gt;
+
+&lt;p&gt;This is the Network Time Protocol daemon, and installing it will
+prevent clock drift and ensure that, say, S3 won&amp;rsquo;t decide to stop
+talking to your server during the second half of the BCS Championship game
+because your server thinks it&amp;rsquo;s living 16 minutes in the future.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;playbook.yml&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight yaml"&gt;
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;ensure ntpd is at the latest version&lt;/span&gt;
+      &lt;span class="s"&gt;apt&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;pkg=ntp state=latest&lt;/span&gt;
+      &lt;span class="s"&gt;notify&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt;
+      &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;restart ntpd&lt;/span&gt;
+
+    &lt;span class="c1"&gt;#...&lt;/span&gt;
+
+    &lt;span class="s"&gt;handlers&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt;
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;restart ntpd&lt;/span&gt;
+      &lt;span class="s"&gt;service&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;name=ntp state=restarted&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This uses an Ansible handler. It&amp;rsquo;s basically the same as a task, but is just
+called by other tasks like a callback.&lt;/p&gt;
+
+&lt;h3&gt;Setting up logrotate&lt;/h3&gt;
+
+&lt;p&gt;Don&amp;rsquo;t let your logs fill up your hard drive:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;playbook.yml&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight yaml"&gt;
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;install logrotate&lt;/span&gt;
+      &lt;span class="s"&gt;apt&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;pkg=logrotate state=latest&lt;/span&gt;
+
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;copy logrotate config file&lt;/span&gt;
+      &lt;span class="s"&gt;copy&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;src=config/logrotate&lt;/span&gt;
+            &lt;span class="s"&gt;dest=/etc/logrotate.d/image-manager&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href="http://www.rackspace.com/knowledge_center/article/understanding-logrotate-utility"&gt;Guide to logrotate&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;/etc/logrotate.d/image-manager&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight shell"&gt;/var/log/&lt;span class="k"&gt;*&lt;/span&gt;image&lt;span class="k"&gt;*&lt;/span&gt;.log &lt;span class="o"&gt;{&lt;/span&gt;
+daily
+compress
+copytruncate
+size 2M
+rotate 4
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Setting up monit&lt;/h3&gt;
+
+&lt;p&gt;Monit will periodically check the status of your services and bring them back
+up as needed, optionally also sending you alerts or taking other actions if it
+detects that a service is down.  In this sense, it has some overlap with upstart,
+but I find it easier to use, it makes an actual http request instead of just
+checking the pid file, and I like to stick to upstart just for enabling
+start/stop commands, and starting services on server startup.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight yaml"&gt;    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;copy monit config file&lt;/span&gt;
+      &lt;span class="s"&gt;copy&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;src=config/monitrc&lt;/span&gt;
+            &lt;span class="s"&gt;dest=/etc/monit/monitrc&lt;/span&gt;
+            &lt;span class="s"&gt;mode=0700&lt;/span&gt;
+
+    &lt;span class="c1"&gt;#this might not be needed, I forgot why it's here&lt;/span&gt;
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;reload monit&lt;/span&gt;
+      &lt;span class="s"&gt;command&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;monit reload&lt;/span&gt;
+
+    &lt;span class="pi"&gt;-&lt;/span&gt; &lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;monitor collage service&lt;/span&gt;
+      &lt;span class="s"&gt;monit&lt;/span&gt;&lt;span class="pi"&gt;:&lt;/span&gt; &lt;span class="s"&gt;name=image-manager state=monitored&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We set it up to check the service every minute, with a 10 second timeout.&lt;/p&gt;
+
+&lt;p&gt;The config file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight shell"&gt;&lt;span class="nb"&gt;set &lt;/span&gt;logfile /var/log/monit.log
+&lt;span class="nb"&gt;set &lt;/span&gt;daemon 60
+
+&lt;span class="c"&gt;#Even if you don't use the web interface for monit,&lt;/span&gt;
+&lt;span class="c"&gt;#this has to be set up:&lt;/span&gt;
+&lt;span class="nb"&gt;set &lt;/span&gt;httpd port 2813 and
+  use address localhost
+  allow localhost
+
+check process image-manager with pidfile &lt;span class="s2"&gt;"/var/run/image-manager.pid"&lt;/span&gt;
+    start program &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"/sbin/start image-manager"&lt;/span&gt;
+    stop program  &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"/sbin/stop image-manager"&lt;/span&gt;
+    &lt;span class="k"&gt;if &lt;/span&gt;failed port 5555 protocol HTTP
+        request /
+        with timeout 10 seconds
+        &lt;span class="k"&gt;then &lt;/span&gt;restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Uptime monitoring&lt;/h3&gt;
+
+&lt;p&gt;We use pingdom.com for this.  We could set up monit to send an email when the
+process goes down, but we also want notifications if the whole box is unreachable.&lt;/p&gt;
+
+&lt;h3&gt;Other notes&lt;/h3&gt;
+
+&lt;p&gt;This isn&amp;rsquo;t really part of the playbook, and probably goes without saying, but
+if you don&amp;rsquo;t explicitly specify the versions of your dependencies, you don&amp;rsquo;t
+have a repeatable deployment process.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s a lot more that can be done with Ansible, including just for organizing
+a simple playbook like ours.  It&amp;rsquo;s a great tool that we will use more in the future.&lt;/p&gt;
+
+&lt;h2&gt;Deployment&lt;/h2&gt;
+
+&lt;p&gt;To deploy we have a &lt;code&gt;hosts&lt;/code&gt; file which specifies the machine(s) that the ansible playbook
+can reference, which looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight plaintext"&gt;[aws]
+ec2-123456.compute-1.amazonaws.com ansible_ssh_private_key_file=secret.pem
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And to deploy we can run:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight plaintext"&gt;ansible-playbook -i hosts playbook.yml -u ubuntu --extra-vars "env=prod"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will ensure all our config files match what we have in our playbook, pull
+down the latest master branch from the service&amp;rsquo;s Github repo, and restart the
+image-manager service.&lt;/p&gt;
+
+&lt;p&gt;If we were to need to deploy to a new AWS box, we can run:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight plaintext"&gt;  vagrant provision web --provider=aws`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is set up through Vagrant, and the config looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight ruby"&gt;   &lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;provider&lt;/span&gt; &lt;span class="ss"&gt;:aws&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;aws&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;override&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+      &lt;span class="n"&gt;aws&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;access_key_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"secret"&lt;/span&gt;
+      &lt;span class="n"&gt;aws&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;secret_access_key&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"secret"&lt;/span&gt;
+      &lt;span class="c1"&gt;# ubuntu AMI&lt;/span&gt;
+      &lt;span class="n"&gt;aws&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;ami&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"ami-1d8c9574"&lt;/span&gt;
+      &lt;span class="n"&gt;aws&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;instance_type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"m3.medium"&lt;/span&gt;
+      &lt;span class="n"&gt;aws&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;keypair_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"secret"&lt;/span&gt;
+      &lt;span class="n"&gt;aws&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;security_groups&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"quicklaunch-1"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+      &lt;span class="n"&gt;aws&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;tags&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s1"&gt;'Name'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Img Manager'&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt;
+
+      &lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;box&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"dummy"&lt;/span&gt;
+      &lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;box_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"&lt;/span&gt;
+      &lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;ssh&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"ubuntu"&lt;/span&gt;
+      &lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;ssh&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;private_key_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"secret.pem"&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>Juxt for custom map accessors</title>
     <link rel="alternate" href="http://blog.url.com/2014/08/10/juxt-for-custom-map-accessors.html"/>
