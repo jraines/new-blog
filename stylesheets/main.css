@@ -5,15 +5,19 @@
   box-sizing: border-box; }
 
 /* line 24, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+.highlight .p {
+  color: #a0a050 !important; }
+
+/* line 27, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 #name {
   display: inline-block; }
 
-/* line 27, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 30, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 #icons {
   display: inline-block;
   margin-left: 40px; }
 
-/* line 31, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 34, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 body {
   font-family: Arial, sans-serif;
   background: #fdf6e3;
@@ -21,18 +25,18 @@ body {
   font-size: 16px;
   line-height: 28px; }
 
-/* line 40, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 43, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i {
   font-size: 28px;
   transition: color 0.2s ease; }
-/* line 44, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
-a i.fa-github {
-  color: black; }
 /* line 47, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+a i.fa-github {
+  color: black; }
+/* line 50, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i.fa-twitter {
   color: #268bd2; }
 
-/* line 51, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 54, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 body {
   font-family: Arial, sans-serif;
   background: #fdf6e3;
@@ -40,21 +44,21 @@ body {
   font-size: 16px;
   line-height: 28px; }
 
-/* line 60, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 63, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i {
   font-size: 28px;
   transition: color 0.2s ease; }
-/* line 64, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 67, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i.fa-github {
   color: black; }
-/* line 67, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 70, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i.fa-twitter {
   color: #268bd2; }
-/* line 70, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 73, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 a i:hover {
   color: #b58900; }
 
-/* line 73, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 76, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 #bio-photo {
   display: inline-block;
   vertical-align: middle;
@@ -66,20 +70,20 @@ a i:hover {
   background: url("/images/jr.png") center center no-repeat;
   background-size: 80px; }
 
-/* line 84, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 87, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 #byline {
   font-style: italic;
   text-align: center;
   padding: 10px 0 25px 0; }
-  /* line 88, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 91, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #byline a {
     font-style: normal; }
 
-/* line 91, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 94, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 p {
   margin-bottom: 26px; }
 
-/* line 94, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 97, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 .highlight {
   min-width: 700px;
   display: inline-block;
@@ -90,13 +94,13 @@ p {
   -moz-border-radius: 6px;
   border-radius: 6px; }
 
-/* line 104, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 107, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 #main {
   width: 625px;
   margin: auto;
   margin-top: 20px;
   padding: 10px; }
-  /* line 110, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 113, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main blockquote {
     font-style: italic;
     color: black;
@@ -107,7 +111,7 @@ p {
     border-bottom: thin solid darkgoldenrod;
     margin-top: 5px;
     margin-bottom: 24px; }
-    /* line 121, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+    /* line 124, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
     #main blockquote .attribution {
       font-weight: bold;
       display: inline-block;
@@ -115,44 +119,44 @@ p {
       width: 100%;
       font-size: 16px;
       padding-right: 10px; }
-    /* line 129, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+    /* line 132, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
     #main blockquote p {
       margin-bottom: 0; }
-  /* line 132, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 135, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main h1 {
     color: #cb4b16;
     font-size: 32px;
     padding: 18px 0 22px 0;
     line-height: 1.2em;
     font-weight: bold; }
-  /* line 139, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 142, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main h2 {
     color: #6c71c4;
     font-size: 26px;
     padding: 24px 0 28px 0; }
-  /* line 144, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 147, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main h3 {
     color: #2aa198;
     font-size: 18px;
     padding: 15px 0 20px 0; }
-  /* line 149, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 152, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main h4 {
     color: #6c71c4;
     font-size: 22px;
     padding: 16px 0 0 0; }
-  /* line 154, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 157, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main ul {
     margin: 24px 0 24px 0;
     list-style-position: inside;
     font-size: 18px; }
-    /* line 159, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+    /* line 162, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
     #main ul li {
       margin-bottom: 26px; }
-  /* line 163, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+  /* line 166, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
   #main ul.articles li {
     margin-bottom: 4px;
     font-size: 16px; }
 
-/* line 168, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
+/* line 171, /Users/jeremyraines/dev/blog/source/stylesheets/main.css.sass */
 footer {
   clear: both; }
