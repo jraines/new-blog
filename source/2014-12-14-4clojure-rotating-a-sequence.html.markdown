@@ -1,7 +1,7 @@
 ---
 title: "4Clojure: rotating a sequence"
 date: 2014-12-14 18:18 UTC
-tags: clojure
+tags: clojure, chain
 ---
 
 #Rotating a sequence
@@ -19,7 +19,7 @@ Such that:
 and
 
 ```clojure
-  (= (your-fn 2 [1 2 3 4 5]) '(3 4 5 1 2))
+  (= (your-fn -2 [1 2 3 4 5]) '(4 5 1 2 3))
 ```
 
 ##My solution
