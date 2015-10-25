@@ -10,14 +10,22 @@
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <title>Jeremy Raines - Copying a table from Heroku Postgres to local csv file</title>
+    <title>Jeremy Raines - Connecting Figwheel to Emacs</title>
 
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
   </head>
   <body>
     <div id="main" role="main">
-      <pre><code class="highlight plaintext">echo "COPY products TO STDOUT WITH CSV HEADER " | heroku pg:psql -a app-name &gt; products.csv
-</code></pre>
+      <ul>
+<li>Make sure you have the lein-fighweel plugin</li>
+<li>Make sure you have nrepl port set (mine is 7888)</li>
+<li><code>lein repl :connect 7888</code></li>
+<li>In Emacs, run <code>cider-connect</code>, choose <code>localhost</code>, and type the port (7888)</li>
+<li>In that repl, <code>(use &#39;figwheel-sidecar.repl-api)</code> then <code>(cljs-repl)</code></li>
+<li><code>cider-jack-in</code></li>
+<li>Load page in browser</li>
+<li><code>(in-ns your-ns.core)</code></li>
+</ul>
 
     </div>
   </body>

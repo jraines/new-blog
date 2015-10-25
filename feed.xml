@@ -5,10 +5,108 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2015-09-22T20:00:00-04:00</updated>
+  <updated>2015-10-25T14:18:00-04:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Connecting Figwheel to Emacs</title>
+    <link rel="alternate" href="http://blog.url.com/2015/10/25/Connecting-Figwheel-to-Emacs.html"/>
+    <id>http://blog.url.com/2015/10/25/Connecting-Figwheel-to-Emacs.html</id>
+    <published>2015-10-25T14:18:00-04:00</published>
+    <updated>2015-10-25T14:32:58-04:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;Make sure you have the lein-fighweel plugin&lt;/li&gt;
+&lt;li&gt;Make sure you have nrepl port set (mine is 7888)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lein repl :connect 7888&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;In Emacs, run &lt;code&gt;cider-connect&lt;/code&gt;, choose &lt;code&gt;localhost&lt;/code&gt;, and type the port (7888)&lt;/li&gt;
+&lt;li&gt;In that repl, &lt;code&gt;(use &amp;#39;figwheel-sidecar.repl-api)&lt;/code&gt; then &lt;code&gt;(cljs-repl)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cider-jack-in&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Load page in browser&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;(in-ns your-ns.core)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>The German Tank Problem For Competitive Intel</title>
+    <link rel="alternate" href="http://blog.url.com/2015/09/26/german-tank-problem-for-competitive-intel.html"/>
+    <id>http://blog.url.com/2015/09/26/german-tank-problem-for-competitive-intel.html</id>
+    <published>2015-09-25T20:00:00-04:00</published>
+    <updated>2015-10-25T14:52:16-04:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;The German Tank Problem&lt;/h1&gt;
+
+&lt;h2&gt;Or Why To Obfuscate Your User IDs&lt;/h2&gt;
+
+&lt;p&gt;(note, this is pulled largely from the Wikipedia page, where there is additional derivation
+of these equations.  This post started as an exercise in understanding by explaining, and ended
+as an exercise in learning LaTex and seeing how high I could raise my blood pressure)&lt;/p&gt;
+
+&lt;p&gt;In World War II, Allied intelligence used conventional intelligence and statistical
+estimation to try to guess the production of German tanks.&lt;/p&gt;
+
+&lt;p&gt;The statistical estimates, which were based on a handful of serial numbers from
+captured tanks, turned out to be much, much more accurate.&lt;/p&gt;
+
+&lt;p&gt;From a frequentist perspective, this estimation is given by the formula:&lt;/p&gt;
+
+&lt;p&gt;\[N = m + {m - k \over k}\]&lt;/p&gt;
+
+&lt;p&gt;where m is the max serial number from the sample, and k is the size of the sample.
+Intuitively, this is sample maximum plus the average gap between observations in the sample&lt;/p&gt;
+
+&lt;p&gt;A Bayesian analysis yields a probability mass function.&lt;/p&gt;
+
+&lt;p&gt;\[P(N = n) =
+\begin{cases}
+  0 &amp;amp; \quad \text{if } n &amp;lt; m\cr
+  {k -1 \over k} {{ m - 1 \choose k - 1 } \over { n \choose k }} &amp;amp; \quad \text{otherwise}
+\end{cases}\]&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A probability mass function differs from a probability density function (pdf) in that the latter is associated with continuous rather than discrete random variables; the values of the latter are not probabilities as such: a pdf must be integrated over an interval to yield a probability.  (source: Wikipedia)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;From this we can get the mean and standard deviation of the distribution in order to estimate.&lt;/p&gt;
+
+&lt;p&gt;\[N \approx \mu \pm \sigma \]&lt;/p&gt;
+
+&lt;p&gt;The mean of a probability distribution is:&lt;/p&gt;
+
+&lt;p&gt;\[\mu = \sum_{\substack{x}} xP(x)\]&lt;/p&gt;
+
+&lt;p&gt;(Note: in wikipedia, this is referred to as &amp;ldquo;order of magnitude&amp;rdquo; &amp;ndash; why?)&lt;/p&gt;
+
+&lt;p&gt;So, in this case it is:&lt;/p&gt;
+
+&lt;p&gt;\[\mu = \sum_{\substack{n}} n \times (N = n \text{ | } M = m, K = k) \]&lt;/p&gt;
+
+&lt;p&gt;Alright, so what&amp;rsquo;s the probability that N = n, given m and k?&lt;/p&gt;
+
+&lt;p&gt;Conditional probability tells us that:&lt;/p&gt;
+
+&lt;p&gt;\[(n | m,k) = (m | n,k){(n | k) \over (m | k)}\]&lt;/p&gt;
+
+&lt;p&gt;The first term on the right-hand side is the probability that the max serial number
+is equal to m, when n is known&lt;/p&gt;
+
+&lt;p&gt;The numerator of the second term is the credibility that the total number of tanks
+is equal to n when k tanks have been observed but before the serial numbers have
+been observed. Assume that it has a discrete uniform distribution.&lt;/p&gt;
+
+&lt;p&gt;The denominator is  the probability that the maximum serial number is equal to m
+once k tanks have been observed but before the serial numbers have actually been observed.
+\scriptstyle (m\mid k) can be re-written in terms of the other quantities by marginalizing
+over all possible \scriptstyle n.&lt;/p&gt;
+
+&lt;p&gt;For k &amp;gt;= 4, there are formulas to get the mean and standard deviation (see wikipedia for derivation)&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Resume Inspired by Chris Wanstrath</title>
     <link rel="alternate" href="http://blog.url.com/2015/09/23/wanstrath-style-resume.html"/>
@@ -452,65 +550,6 @@ image-manager service.&lt;/p&gt;
       &lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;ssh&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"ubuntu"&lt;/span&gt;
       &lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;ssh&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;private_key_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"secret.pem"&lt;/span&gt;
     &lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Juxt for custom map accessors</title>
-    <link rel="alternate" href="http://blog.url.com/2014/08/10/juxt-for-custom-map-accessors.html"/>
-    <id>http://blog.url.com/2014/08/10/juxt-for-custom-map-accessors.html</id>
-    <published>2014-08-09T20:00:00-04:00</published>
-    <updated>2014-08-10T22:50:05-04:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Juxt for custom map accessors&lt;/h1&gt;
-
-&lt;p&gt;Let&amp;rsquo;s say we have a map like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ppl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[{&lt;/span&gt;&lt;span class="no"&gt;:name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"Jeremy"&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="no"&gt;:age&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:job&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"programmer"&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-          &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="no"&gt;:name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"Grace"&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="no"&gt;:age&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:job&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"designer"&lt;/span&gt;&lt;span class="p"&gt;}])&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If I wanted to grab just the name and age from it, I could write:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;#&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;vector&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;get&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;%&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;get&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;%&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:age&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ppl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But with &lt;code&gt;juxt&lt;/code&gt; I can do:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;#&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;juxt&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:age&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ppl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Hat tip to &lt;a href="https://tbaldridge.pivotshare.com/media/function-of-the-day-juxt/11920"&gt;Tim Baldridge for this example&lt;/a&gt;&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Useful Bash Lines</title>
-    <link rel="alternate" href="http://blog.url.com/2014/08/05/useful-bash-lines.html"/>
-    <id>http://blog.url.com/2014/08/05/useful-bash-lines.html</id>
-    <published>2014-08-04T20:00:00-04:00</published>
-    <updated>2014-08-11T22:44:52-04:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Useful Bash One Liners&lt;/h1&gt;
-
-&lt;p&gt;Delete files older than 7 days&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight shell"&gt;find /your_directory -mtime +7 -exec rm -f &lt;span class="o"&gt;{}&lt;/span&gt; &lt;span class="se"&gt;\;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Find largest 10 files in directory. &lt;a href="http://explainshell.com/explain?cmd=du+-hsx+*+%7C+sort+-rh+%7C+head+-10"&gt;Explanation&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight shell"&gt;du -hsx &lt;span class="k"&gt;*&lt;/span&gt; | sort -rh | head -10
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Get specific columns from a csv and display in columns.  Here, the first column and sixth through tenth:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight shell"&gt;cut -d &lt;span class="s2"&gt;","&lt;/span&gt; -f 1,6-10 example.csv | column -t -s&lt;span class="s1"&gt;','&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Sort a csv by a number in the fifth field&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight shell"&gt;sort -n -k5 items.csv
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Average the 5th column of a file, but only consider rows where that column is greater than 150&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight shell"&gt;awk -F, &lt;span class="s1"&gt;' $5 &amp;gt; 150 {n++; sum+=$5} END{ print sum/n}'&lt;/span&gt; items.csv
 &lt;/code&gt;&lt;/pre&gt;
 </content>
   </entry>
