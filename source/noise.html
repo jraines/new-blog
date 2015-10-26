@@ -2910,7 +2910,7 @@ the pseudorandom gradients associated with those corners.</p>
   (reduce + (map * X Y)))</pre></td></tr><tr><td class="docs"><p>linear interpolation function</p>
 </td><td class="codes"><pre class="brush: clojure">(defn lerp
   [t a b]
-  (+ a (* t (- b a))))</pre></td></tr><tr><td class="docs"><p>ease function. This particular one is chosen because it is diff</p>
+  (+ a (* t (- b a))))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn ease
   [t]
   (- (* 3 (.pow js/Math t 2))
@@ -2927,7 +2927,13 @@ the pseudorandom gradients associated with those corners.</p>
   [x y]
   (let [gs (corner-gradients x y)
         vs (corner-to-point-vectors x y)]
-    (map dot gs vs)))</pre></td></tr><tr><td class="docs"><p>compute the noise function value for a given pixel</p>
+    (map dot gs vs)))</pre></td></tr><tr><td class="docs"><p>situate the point within a unit square</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>find the coordinates within the unit square</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>exaggerate proximity to corner</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>compute influences of corner gradients</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>linearly interpolate between the exaggerated point the "influenced" point</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>I forgot why this was needed :(</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>compute the noise function value for a given pixel</p>
 </td><td class="codes"><pre class="brush: clojure">(defn noise
   [x y]
   (let [
@@ -2959,13 +2965,14 @@ the pseudorandom gradients associated with those corners.</p>
   (.beginPath ctx)
   (.moveTo ctx startx starty)
   (.lineTo ctx endx endy)
-  (.stroke ctx))</pre></td></tr><tr><td class="docs"><p>draw the grid which shows the corner vectors and vectors to corners for an example point</p>
+  (.stroke ctx))</pre></td></tr><tr><td class="docs"><p>crisper lines on the canvas</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>draw the grid which shows the corner vectors and vectors to corners for an example point</p>
 </td><td class="codes"><pre class="brush: clojure">(defn drawGrid
   []
   (let [canvas (.getElementById js/document &quot;surface&quot;)
         ctx (.getContext canvas &quot;2d&quot;)]
     (set! (.-strokeStyle ctx) &quot;blue&quot;)
-    ;;crisper lines on the canvas
+    ;; crisper lines on the canvas
     (.translate ctx 0.5 0.5)
     (doseq [n (range 100 500 100)]
       (stroke ctx
