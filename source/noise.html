@@ -2887,95 +2887,95 @@ the pseudorandom gradients associated with those corners.</p>
                                    y (rand)
                                    mult (if (&gt; (rand) (rand)) 1.0 -1.0)
                                    mult2 (if (&gt; (rand) (rand)) 1.0 -1.0)]
-                               [(* x mult) (* y mult2)]))))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn get-gradient [[a b]]
-  &quot;find the gradient associated with a corner of a grid cell.
+                               [(* x mult) (* y mult2)]))))))</pre></td></tr><tr><td class="docs"><p>find the gradient associated with a corner of a grid cell.
    This stands in for the hash function in the real implementation, and the purpose
    is to map data of arbitrary size to data of fixed size (our 8 random gradients). I think
    this, along with the dot function, account for the slowness. The theoretical explanations
    all involve the dot product but I don't understand how it's implemented in most real implentations,
-   including Ken Perlin's Java reference implementation.&quot;
+   including Ken Perlin's Java reference implementation.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-gradient 
+  [[a b]]
   (let [ndx (int (mod (+ a b) 7))]
-    (get gradients ndx)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn get-corners [x y]
-  &quot;for a given point, find the corners of the bounding box (grid cell) it is contained within&quot;
+    (get gradients ndx)))</pre></td></tr><tr><td class="docs"><p>for a given point, find the corners of the bounding box (grid cell) it is contained within</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-corners
+  [x y]
   (let [nw [(- x (mod x 100)) (- y (mod y 100))]
         [x y] nw
         ne [(+ 100 x) y]
         sw [x (+ 100 y)]
         se [(+ 100 x) (+ 100 y)]]
-    [nw ne sw se]))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn dot [X Y]
-  &quot;vector dot product&quot;
-  (reduce + (map * X Y)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn lerp [t a b]
-  &quot;linear interpolation function&quot;
-  (+ a (* t (- b a))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn ease [t]
-  &quot;ease function. This particular one is chosen because it is diff&quot;
+    [nw ne sw se]))</pre></td></tr><tr><td class="docs"><p>vector dot product</p>
+</td><td class="codes"><pre class="brush: clojure">(defn dot
+  [X Y]
+  (reduce + (map * X Y)))</pre></td></tr><tr><td class="docs"><p>linear interpolation function</p>
+</td><td class="codes"><pre class="brush: clojure">(defn lerp
+  [t a b]
+  (+ a (* t (- b a))))</pre></td></tr><tr><td class="docs"><p>ease function. This particular one is chosen because it is diff</p>
+</td><td class="codes"><pre class="brush: clojure">(defn ease
+  [t]
   (- (* 3 (.pow js/Math t 2))
-     (* 2 (.pow js/Math t 3))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn corner-gradients [x y]
-  &quot;find the gradients of each corner of the bounding box&quot;
-  (map get-gradient (get-corners x y)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn corner-to-point-vectors [x y]
-  &quot;find the vectors from the point to the bounding box corners&quot;
+     (* 2 (.pow js/Math t 3))))</pre></td></tr><tr><td class="docs"><p>find the gradients of each corner of the bounding box</p>
+</td><td class="codes"><pre class="brush: clojure">(defn corner-gradients
+  [x y]
+  (map get-gradient (get-corners x y)))</pre></td></tr><tr><td class="docs"><p>find the vectors from the point to the bounding box corners</p>
+</td><td class="codes"><pre class="brush: clojure">(defn corner-to-point-vectors
+  [x y]
   (map (fn [[cx cy]] [(- x cx) (- y cy)])
-       (get-corners x y)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn influences [x y]
-  &quot;compute the 'influences' of the corner gradients, by taking the dot product
-   of the corner gradient and the vector from the point to that corner&quot;
+       (get-corners x y)))</pre></td></tr><tr><td class="docs"><p>compute the 'influences' of the corner gradients, by taking the dot product
+   of the corner gradient and the vector from the point to that corner</p>
+</td><td class="codes"><pre class="brush: clojure">(defn influences
+  [x y]
   (let [gs (corner-gradients x y)
         vs (corner-to-point-vectors x y)]
-    (map dot gs vs)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn noise [x y]
-  &quot;compute the noise function value for a given pixel&quot;
+    (map dot gs vs)))</pre></td></tr><tr><td class="docs"><p>compute the noise function value for a given pixel</p>
+</td><td class="codes"><pre class="brush: clojure">(defn noise
+  [x y]
   (let [
-        ;situate the point within a unit square
+        ;;situate the point within a unit square
         rel-x (/ x 100)
         rel-y (/ y 100)
-        ;find the coordinates within the unit square
+        ;;find the coordinates within the unit square
         frac-x (mod rel-x 1)
         frac-y (mod rel-y 1)
-        ;exaggerate proximity to corner
+        ;;exaggerate proximity to corner
         Sx (ease frac-x)
         Sy (ease frac-y)
-        ;compute influences of corner gradients
+        ;;compute influences of corner gradients
         [nw ne sw se] ((fn []
                          (influences x y)))
-        ;linearly interpolate between the exaggerated point the &quot;influenced&quot; point
+        ;;linearly interpolate between the exaggerated point the &quot;influenced&quot; point
         a (lerp Sx nw ne)
         b (lerp Sx sw se)
         z (lerp Sy a b)]
-    ;I forgot why this was needed :(
+    ;;I forgot why this was needed :(
     (.abs js/Math (/ z 10))))</pre></td></tr><tr><td class="docs"><h1>drawing related stuff</h1>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>multiplication by 40 is just so the gradients are visible on the drawn grid</p>
 </td><td class="codes"><pre class="brush: clojure">(defn xPlusGrad [x y]
   (+ x (* 40 (first (get-gradient [x y])))))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn yPlusGrad [x y]
-  (+ y (* 40 (second  (get-gradient [x y])))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn stroke [ctx {:keys [startx starty endx endy]}]
-  &quot;helper function to draw a stroke on the canvas&quot;
+  (+ y (* 40 (second  (get-gradient [x y])))))</pre></td></tr><tr><td class="docs"><p>helper function to draw a stroke on the canvas</p>
+</td><td class="codes"><pre class="brush: clojure">(defn stroke
+  [ctx {:keys [startx starty endx endy]}]
   (.beginPath ctx)
   (.moveTo ctx startx starty)
   (.lineTo ctx endx endy)
-  (.stroke ctx))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn drawGrid []
-  &quot;draw the grid which shows the corner vectors and vectors to corners for an example point&quot;
+  (.stroke ctx))</pre></td></tr><tr><td class="docs"><p>draw the grid which shows the corner vectors and vectors to corners for an example point</p>
+</td><td class="codes"><pre class="brush: clojure">(defn drawGrid
+  []
   (let [canvas (.getElementById js/document &quot;surface&quot;)
         ctx (.getContext canvas &quot;2d&quot;)]
     (set! (.-strokeStyle ctx) &quot;blue&quot;)
-    ;crisper lines on the canvas
+    ;;crisper lines on the canvas
     (.translate ctx 0.5 0.5)
     (doseq [n (range 100 500 100)]
       (stroke ctx
               { :startx 100 :starty n
                 :endx 400 :endy n })
       (stroke ctx
-              { :startx n :starty 100 
-                :endx n :endy 400 }))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn drawGradients []
-  &quot;draw the corner gradients on the example grid&quot;
+              { :startx n :starty 100
+                :endx n :endy 400 }))))</pre></td></tr><tr><td class="docs"><p>draw the corner gradients on the example grid</p>
+</td><td class="codes"><pre class="brush: clojure">(defn drawGradients
+  []
   (let [canvas (.getElementById js/document &quot;surface&quot;)
         ctx (.getContext canvas &quot;2d&quot;)]
     (set! (.-strokeStyle ctx) &quot;red&quot;)
@@ -2983,15 +2983,15 @@ the pseudorandom gradients associated with those corners.</p>
       (doseq [y (range 100 500 100)]
         (stroke ctx
                 {:startx x :starty y
-                 :endx (xPlusGrad x y) :endy (yPlusGrad x y) })))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn drawPoint []
-  &quot;draw the example point on the grid&quot;
+                 :endx (xPlusGrad x y) :endy (yPlusGrad x y) })))))</pre></td></tr><tr><td class="docs"><p>draw the example point on the grid</p>
+</td><td class="codes"><pre class="brush: clojure">(defn drawPoint
+  []
   (let [canvas (.getElementById js/document &quot;surface&quot;)
         ctx (.getContext canvas &quot;2d&quot;)]
     (set! (.-strokeStyle ctx) &quot;green&quot;)
-    (.fillRect ctx 221 139 3 3)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn drawPointVectors []
-  &quot;draw the vectors from the point to the corners of its bounding box&quot;
+    (.fillRect ctx 221 139 3 3)))</pre></td></tr><tr><td class="docs"><p>draw the vectors from the point to the corners of its bounding box</p>
+</td><td class="codes"><pre class="brush: clojure">(defn drawPointVectors
+  []
   (let [canvas (.getElementById js/document &quot;surface&quot;)
         ctx (.getContext canvas &quot;2d&quot;)
         x 221
@@ -3000,9 +3000,9 @@ the pseudorandom gradients associated with those corners.</p>
     (doseq [[cx cy] (get-corners x y)]
       (stroke ctx
               {:startx cx :starty cy
-               :endx x :endy y }))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn drawNoiseCanvas []
-  &quot;draw a canvas with the noise function computed for each pixel&quot;
+               :endx x :endy y }))))</pre></td></tr><tr><td class="docs"><p>draw a canvas with the noise function computed for each pixel</p>
+</td><td class="codes"><pre class="brush: clojure">(defn drawNoiseCanvas
+  []
   (let [canvas (.getElementById js/document &quot;noise&quot;)
         ctx (.getContext canvas &quot;2d&quot;)]
     (doseq [x (range 100 400)
