@@ -2927,13 +2927,7 @@ the pseudorandom gradients associated with those corners.</p>
   [x y]
   (let [gs (corner-gradients x y)
         vs (corner-to-point-vectors x y)]
-    (map dot gs vs)))</pre></td></tr><tr><td class="docs"><p>situate the point within a unit square</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>find the coordinates within the unit square</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>exaggerate proximity to corner</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>compute influences of corner gradients</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>linearly interpolate between the exaggerated point the "influenced" point</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>I forgot why this was needed :(</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>compute the noise function value for a given pixel</p>
+    (map dot gs vs)))</pre></td></tr><tr><td class="docs"><p>compute the noise function value for a given pixel</p>
 </td><td class="codes"><pre class="brush: clojure">(defn noise
   [x y]
   (let [
@@ -2965,8 +2959,7 @@ the pseudorandom gradients associated with those corners.</p>
   (.beginPath ctx)
   (.moveTo ctx startx starty)
   (.lineTo ctx endx endy)
-  (.stroke ctx))</pre></td></tr><tr><td class="docs"><p>crisper lines on the canvas</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>draw the grid which shows the corner vectors and vectors to corners for an example point</p>
+  (.stroke ctx))</pre></td></tr><tr><td class="docs"><p>draw the grid which shows the corner vectors and vectors to corners for an example point</p>
 </td><td class="codes"><pre class="brush: clojure">(defn drawGrid
   []
   (let [canvas (.getElementById js/document &quot;surface&quot;)
