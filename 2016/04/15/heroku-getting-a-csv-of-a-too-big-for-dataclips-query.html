@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <link href="../../../stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/main.css" rel="stylesheet" type="text/css" />
+
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Jeremy Raines - Getting a CSV of a query too big for Heroku Dataclips</title>
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+  </head>
+  <body>
+    <div id="main" role="main">
+      <ol>
+<li>Copy the query into a .sql file locally.</li>
+<li>Remove all newlines, because psql&rsquo;s <code>\copy</code> command does not accept multiline arguments.</li>
+<li>Surround the query with parens and the <code>\copy</code> command, like so: <code>\copy (select ...) TO dump.csv CSV DELIMITER &#39;,&#39; HEADERS</code></li>
+<li>Make sure to use <code>as</code> aliases for any column names that are the same across tables, because this method will not be as smart as Dataclips about distinguishing the column headers for those.</li>
+<li>pipe it to psql: <code>cat jeans.sql | heroku pg:psql dbcolor -a yourapp</code></li>
+</ol>
+
+    </div>
+  </body>
+</html>
