@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <link href="../../../stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/main.css" rel="stylesheet" type="text/css" />
+
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Jeremy Raines - More useful shell incantations</title>
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+  </head>
+  <body>
+    <div id="main" role="main">
+      <h2>More useful shell incantations</h2>
+
+<p><code>ls -ltr</code></p>
+
+<p>List dir contents in descending order by date modified</p>
+
+<p><code>zip -Dr zipdest.zip /zipsource/stuff</code></p>
+
+<p>Recursively zip contents of a directory but flatten out paths so all files are at one level in the zip file.</p>
+
+<p><code>rename &#39;s/.png.+/.png/&#39; *</code></p>
+
+<p>Rename files based on regex substitution pattern. Note for this you should not use the old <code>rename</code> binary.  The perl one is available via Homebrew: <code>brew install rename</code></p>
+
+<p><code>curl -O url</code></p>
+
+<p>Do not change the filename of the downloaded file. I always forget the correct option.</p>
+
+    </div>
+  </body>
+</html>
