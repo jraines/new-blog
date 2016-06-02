@@ -1,7 +1,7 @@
 ---
 title: Getting a CSV of a query too big for Heroku Dataclips
 date: 2016-04-15 20:27 UTC
-tags: notes
+tags: chain
 ---
 
 1. Copy the query into a .sql file locally.
