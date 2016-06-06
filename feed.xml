@@ -5,10 +5,28 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2016-06-01T19:48:00-07:00</updated>
+  <updated>2016-06-06T10:01:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>core.async &amp; http.kit API call caching function</title>
+    <link rel="alternate" href="http://blog.url.com/2016/06/06/core-async-http-kit-api-call-caching-function.html"/>
+    <id>http://blog.url.com/2016/06/06/core-async-http-kit-api-call-caching-function.html</id>
+    <published>2016-06-06T10:01:00-07:00</published>
+    <updated>2016-06-06T10:19:55-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;img src="/images/function.png" style="width:500px"&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;cache-fn&lt;/code&gt; takes a function &amp;ndash; which itself must return a channel &amp;ndash; and returns a version of it that will cache results based on its arguments.&lt;/p&gt;
+
+&lt;p&gt;It does this by returning a sort of &amp;ldquo;promise&amp;rdquo; result so that all consumers can get the value out of the result chan, not just the first one.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;promise-c&lt;/code&gt; returns a channel that always returns the result value.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>More useful shell incantations</title>
     <link rel="alternate" href="http://blog.url.com/2016/06/02/more-useful-shell-incantations.html"/>
@@ -147,198 +165,6 @@
 &lt;p&gt;Today, I think many bootcamp grads can compress this timeline quite a lot, but I sympathize with their struggles in the current market, where everyone wants a senior dev and/or wants to hire you for free or for peanuts to work on a shitty project that you aren&amp;rsquo;t confident about and doesn&amp;rsquo;t align with your interests.  Some will be fortunate and get that $70k job right off the bat, but if you&amp;rsquo;re not one of those, there is still light at the end of the tunnel if you are persistent and enjoy learning enough that you can stomach learning things that might not directly help you in the future.&lt;/p&gt;
 
 &lt;p&gt;The struggle will harden you, and you&amp;rsquo;ll absorb more knowledge along the way than you think.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Getting Started with Clojure Web Development</title>
-    <link rel="alternate" href="http://blog.url.com/2015/11/16/getting-started-with-clojure-web-development.html"/>
-    <id>http://blog.url.com/2015/11/16/getting-started-with-clojure-web-development.html</id>
-    <published>2015-11-16T13:57:00-08:00</published>
-    <updated>2015-11-16T13:58:08-08:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Gentle Intro to Web Development in Clojure&lt;/h1&gt;
-
-&lt;h2&gt;Coverage goals&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Develoment environment setup (lein-figwheel, a REPL, (a little) Emacs&lt;/li&gt;
-&lt;li&gt;Minimal server setup&lt;/li&gt;
-&lt;li&gt;Om on the client side&lt;/li&gt;
-&lt;li&gt;Devcards for interactive UI development&lt;/li&gt;
-&lt;li&gt;Database interaction with YeSQL&lt;/li&gt;
-&lt;li&gt;Deploying to a server with Ansible&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;em&gt;But first,&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2&gt;Assumptions, Caveats, and who this is for&lt;/h2&gt;
-
-&lt;p&gt;I assume you know Clojure syntax, and are familiar with (but far from an expert on) the Clojure &amp;amp; ClojureScript ecosystem. Maybe you&amp;rsquo;re like me, and have been dabbling for a while &amp;ndash; doing some 4Clojure problems, reading a book or two, maybe putting together a small project, but pretty sure you were Doing It Wrong.&lt;/p&gt;
-
-&lt;p&gt;If that sounds like you, unfortunately this guide won&amp;rsquo;t solve that, but I hope it will be a step forward towards the goal of &lt;em&gt;putting it all together&lt;/em&gt;.  I aim to cover some environment setup, basic setup of a server, and make a few pieces of the exciting potential of Om Next a bit more approachable. Finally we&amp;rsquo;ll deploy to a server.&lt;/p&gt;
-
-&lt;h2&gt;Starting with Leiningen and Figwheel&lt;/h2&gt;
-
-&lt;p&gt;To create a new project, run &lt;code&gt;lein new figwheel appname&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Then to start the browser repl: &lt;code&gt;lein figwheel&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;For a nicer repl (arrow key history navigation &amp;amp; more), you&amp;rsquo;ll probably want to install &lt;code&gt;rlwrap&lt;/code&gt; (available via Homebrew on OSX), then start the repl with &lt;code&gt;rlwrap lein figwheel&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;In &lt;code&gt;src/[appname]/core.cljs&lt;/code&gt; You can edit the &lt;code&gt;on-js-reload&lt;/code&gt; function to do something every time the code is hot reloaded.&lt;/p&gt;
-
-&lt;h3&gt;Running the repl from Emacs with Cider&lt;/h3&gt;
-
-&lt;p&gt;In &lt;code&gt;project.clj&lt;/code&gt; uncomment &lt;code&gt;:nrepl-port 7888&lt;/code&gt; in the &lt;code&gt;:figwheel&lt;/code&gt; section of the config.&lt;/p&gt;
-
-&lt;p&gt;To ensure that Cider uses the correct version of nREPL tools, add this to &lt;code&gt;project.clj&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="no"&gt;:profiles&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="no"&gt;:dev&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:dependencies&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;org.clojure/tools.nrepl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"0.2.12"&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-           &lt;/span&gt;&lt;span class="no"&gt;:repl-options&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="no"&gt;:nrepl-middleware&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;cemerick.piggieback/wrap-repl&lt;/span&gt;&lt;span class="p"&gt;]}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In terminal, run &lt;code&gt;lein figwheel&lt;/code&gt;. You should see the figwheel server start, awaiting a browser connection.&lt;/p&gt;
-
-&lt;p&gt;Then, in Emacs, do &lt;code&gt;cider-connect&lt;/code&gt;, choose &lt;code&gt;localhost&lt;/code&gt; then manually enter &lt;code&gt;7888&lt;/code&gt; and press enter.&lt;/p&gt;
-
-&lt;p&gt;You may have to then manually open the cider REPL buffer (I think this is a bug, perhaps local to my Emacs version/installation, and it&amp;rsquo;s supposed to open on connect).&lt;/p&gt;
-
-&lt;p&gt;Once the REPL is available, enter &lt;code&gt;(use &amp;#39;figwheel-sidecar.repl-api)&lt;/code&gt; then &lt;code&gt;(cljs-repl)&lt;/code&gt;.   Now when you load your &lt;code&gt;index.html&lt;/code&gt; in the browser, you should get your &lt;code&gt;cljs.user&amp;gt;&lt;/code&gt; browser repl.  Executing &lt;code&gt;(println &amp;quot;Hi&amp;quot;)&lt;/code&gt; should make that message show up in your page&amp;rsquo;s javascript console.&lt;/p&gt;
-
-&lt;p&gt;I skip that &lt;code&gt;(use &amp;#39;figwheel-sidecar.repl-api)&lt;/code&gt; by adding the following to a &lt;code&gt;dev/user.clj&lt;/code&gt; file and telling Leiningen to use that by adding &lt;code&gt;&amp;quot;dev&amp;quot;&lt;/code&gt; to the &lt;code&gt;:source-paths&lt;/code&gt; vector in &lt;code&gt;project.clj&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;ns&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="w"&gt;
-  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;:require&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;figwheel-sidecar.repl-api&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:refer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;cljs-repl&lt;/span&gt;&lt;span class="p"&gt;]]))&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can place other customizations for your dev environment REPL here.&lt;/p&gt;
-
-&lt;h3&gt;CSS watching / reloading&lt;/h3&gt;
-
-&lt;p&gt;CSS files inside &lt;code&gt;resources/public/css&lt;/code&gt; will automatically be reloaded.
-You can customize this in the &lt;code&gt;:figwheel&lt;/code&gt; map of options in the &lt;code&gt;:cljsbuild&lt;/code&gt; options map in &lt;code&gt;project.clj&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;A server with Ring, Compojure, and httpkit&lt;/h2&gt;
-
-&lt;p&gt;Add the following dependencies to &lt;code&gt;project.clj&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;compojure&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"1.4.0"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;                     &lt;/span&gt;&lt;span class="c1"&gt;;routing
-&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;http-kit&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"2.1.19"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;                     &lt;/span&gt;&lt;span class="c1"&gt;;server 
-&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;com.cognitect/transit-clj&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"0.8.285"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="c1"&gt;;transit for clj
-&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;com.cognitect/transit-cljs&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"0.8.225"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="c1"&gt;;transit for cljs
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We&amp;rsquo;ll use compojure to define the routes our application will respond to and http-kit to be our web server.&lt;/p&gt;
-
-&lt;p&gt;Transit is a data format that plays extra nicely with clojure data structures.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/jraines/gentle-om-next/commit/8e70c146ee3e543f90b7476a202f06a7fd65c354#diff-59ac2781f662f112526300f4a4719b87R1"&gt;In a new file&lt;/a&gt;, we set up our server, routes, and add a few helper functions for writing &amp;amp; reading transit data.&lt;/p&gt;
-
-&lt;p&gt;Don&amp;rsquo;t be too put off by the boilerplate around reading and writing transit; I copied it from &lt;a href="https://github.com/swannodette/transit-example"&gt;here&lt;/a&gt; and there&amp;rsquo;s likely a better way (including the ring-transit middleware we&amp;rsquo;ll see shortly).&lt;/p&gt;
-
-&lt;p&gt;Finally we use &lt;a href="https://github.com/jraines/gentle-om-next/commit/8e70c146ee3e543f90b7476a202f06a7fd65c354#diff-51041914672e7e8c6288e92ec0a1d56fR3"&gt;a library&lt;/a&gt; from Google Closure to make an ajax request to fetch some data.&lt;/p&gt;
-
-&lt;h2&gt;Om&lt;/h2&gt;
-
-&lt;p&gt;The next few commits follow the &lt;a href="https://github.com/omcljs/om/wiki/Quick-Start-(om.next)"&gt;Om Next quickstart guide&lt;/a&gt;, so I won&amp;rsquo;t dwell much on them. (In fact, if this is your first time checking out Om, you should definitely go there first &amp;ndash; I really only want to spend time on the piece of Om that I found confusing &amp;ndash; the &amp;ldquo;boring&amp;rdquo; mechanics of setting up client / server sync.  It&amp;rsquo;s actually quite easy, just not currently well documented, in my opinion. &lt;em&gt;Note:  as of this writing, the version of Om I&amp;rsquo;m talking about is currently called Om Next, and is in alpha status, and thus so is this part of the guide&lt;/em&gt;).&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/jraines/gentle-om-next/commit/ab0150afafdfe3b305270d6a8e8977f7fedf8985"&gt;First we&amp;rsquo;ll add Om as a dependency and make a basic component.&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/jraines/gentle-om-next/commit/39be499a06b89698fe2048f4f8dcfc905a0b4400"&gt;Then, let&amp;rsquo;s make it accept props as parameters.&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/jraines/gentle-om-next/commit/f44d51670c992fbfc909b324e5541e4b68e991da"&gt;Next, let&amp;rsquo;s set up our read function, parser, and reconciler, and grab data from the server&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;At this point you should see that your component:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Expresses its data requirements as an Om query expression&lt;/li&gt;
-&lt;li&gt;Is provided that data from the app state by the reconciler, which uses the parser that you defined to process the query.&lt;/li&gt;
-&lt;li&gt;Can (via the read function you give to the parser) request that all or part of its data requirements be fetch from the server if not found locally.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Now let&amp;rsquo;s let Om manage our state between client and server instead of handling that ourselves with explicit ajax requests and &lt;code&gt;swap!&lt;/code&gt;ing the &lt;code&gt;app-state&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;We&amp;rsquo;ll need to provide a function to the &lt;code&gt;:send&lt;/code&gt; key of the reconciler&amp;rsquo;s parameter map.  This will be a function which takes two parameters:  the EDN of the query expression fragment that will be passed to the server, and a callback to handle the response. In this case, our function closes over the single remote URL we&amp;rsquo;ll be sending to on the server.  Notice that what we &lt;em&gt;don&amp;rsquo;t&lt;/em&gt; have to do in the callback is update our app-state:  Om handles it.&lt;/p&gt;
-
-&lt;p&gt;On the server, we have a similar &lt;code&gt;om/parser&lt;/code&gt; function which takes the app state and a &lt;code&gt;:read&lt;/code&gt; function.&lt;/p&gt;
-
-&lt;p&gt;In the request handler, we respond with a transit-encoded result of parsing the state and the query expression fragment that was sent, which is nested in the &lt;code&gt;:remote&lt;/code&gt; key of the transit encoded params (these are decoded for us by ring-transit).  This is where using transit pays off &amp;ndash; we can pass this piece of the request directly into the parser function (note - this is the function &lt;em&gt;created&lt;/em&gt; by &lt;code&gt;om/parser&lt;/code&gt; as parameterized with your read (and mutate, which I don&amp;rsquo;t cover here) functions).&lt;/p&gt;
-
-&lt;p&gt;In the case of &lt;code&gt;:description&lt;/code&gt;, the value is sent back to the server, but since there is no &lt;code&gt;:sender&lt;/code&gt; key in the app state on the server, we send back &lt;code&gt;:not-found&lt;/code&gt; and let the client handle that.&lt;/p&gt;
-
-&lt;p&gt;I also added &lt;code&gt;ring-reload&lt;/code&gt; so I didn&amp;rsquo;t have to restart the server on each change.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/jraines/gentle-om-next/commit/9e92e22307db3e3086a7b5404b78424625ad6407"&gt;Here&amp;rsquo;s the commit for the above setup&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;Devcards&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/bhauman/devcards"&gt;Devcards&lt;/a&gt; is a tool that allows for interactive development of UI components in isolations. You can view them at different states at the same time, compare different edge cases (long text, blank values, etc) without constantly having to replicate that in your main app.  It has a host of other capabilities as well.&lt;/p&gt;
-
-&lt;p&gt;It has great documentation, so I&amp;rsquo;ll refer you there, and to &lt;a href="https://github.com/jraines/gentle-om-next/commit/77abe9a72b556b86890bd1a8160694a011625d4a"&gt;this commit&lt;/a&gt; that got me set up in the most basic way.  Note that to get real benefits, you&amp;rsquo;ll need to do some setup and/or mocking of your Om parsers, reconciler, and possibly server so you can test your components in all their states.&lt;/p&gt;
-
-&lt;p&gt;The one thing I missed, due to a lack of understanding about Leiningen &amp;amp; cljsbuild, was that I needed to do &lt;code&gt;lein figwheel devcards&lt;/code&gt; to start it up, rather than &lt;code&gt;lein figwheel&lt;/code&gt;, which uses your &lt;code&gt;:dev&lt;/code&gt; build profile.&lt;/p&gt;
-
-&lt;h1&gt;Working with a SQL database&lt;/h1&gt;
-
-&lt;h2&gt;YesQL&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href="https://github.com/krisajenkins/yesql"&gt;YesQL&lt;/a&gt; is a simple way to use SQL from Clojure, no extra DSL on top of it.  You put your queries in their own &lt;code&gt;.sql&lt;/code&gt; files, and then generate functions for run them with the &lt;code&gt;defquery&lt;/code&gt; macro.&lt;/p&gt;
-
-&lt;p&gt;This one is pretty straigtforward, so you can go straight from the docs, with two caveats, one borne of my lack of mastery of Leiningen environments and one which I think is an omission from the docs (even if in this case, too, I may be missing some knowledge about SQL files):&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;If you put your query files in &lt;code&gt;resources&lt;/code&gt;, you don&amp;rsquo;t include that in your reference to the SQL file in &lt;code&gt;defquery&lt;/code&gt;, because &lt;code&gt;resources&lt;/code&gt; is part of the Leiningen classpath.&lt;/li&gt;
-&lt;li&gt;The SQL files must start with a blank line.  -_-&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2&gt;Ragtime&lt;/h2&gt;
-
-&lt;p&gt;Coming from Rails, I can&amp;rsquo;t live without database migrations.  &lt;a href="https://github.com/weavejester/ragtime"&gt;Ragtime&lt;/a&gt; gives us this ability. I used the suggested &lt;a href="https://github.com/weavejester/ragtime/wiki/Leiningen-Integration"&gt;Leiningen integration&lt;/a&gt;, and the trickiest thing I found about this, was if I had an error in my SQL, no error would be thrown from &lt;code&gt;lein migrate&lt;/code&gt;.  The table just wouldn&amp;rsquo;t be there. I need to look into it more and see if you just have to rescue exceptions manually and print something on migration failure.&lt;/p&gt;
-
-&lt;p&gt;Note: the same point as the previous section about referencing paths to your migrations directory within &lt;code&gt;resources&lt;/code&gt; applies here.&lt;/p&gt;
-
-&lt;p&gt;Also, from the docs: &amp;ldquo;Note that alphanumeric ordering is used, so if a single migration has more than 9 parts, then start off with 01, 02, etc&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;I think I need more exploration in the database area.  I&amp;rsquo;m not really satisifed with this combo yet, but it&amp;rsquo;s definitely enough to write a simple app backed by a SQL database. I have a feeling I&amp;rsquo;m going to miss ActiveRecord, though, for all the shit it gets in the Ruby community.&lt;/p&gt;
-
-&lt;h1&gt;Deploying to a VPS with Ansible&lt;/h1&gt;
-
-&lt;p&gt;The goal is to have a one line task that will package up our app, provision a server with everything it needs, prep our database, and run our app using &lt;code&gt;java -jar /path/to/jar&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;Building the uberjar&lt;/h2&gt;
-
-&lt;p&gt;You&amp;rsquo;ll want to ensure that your development dependencies don&amp;rsquo;t get shipped with your production app.  I found the &lt;a href="https://github.com/weavejester/environ"&gt;environ&lt;/a&gt; tool useful for this, and also shuffled a few dependencies from the main list in &lt;code&gt;project.clj&lt;/code&gt; to specific &lt;code&gt;:profiles&lt;/code&gt; sections.&lt;/p&gt;
-
-&lt;p&gt;(I had to do a &lt;a href="https://github.com/jraines/gentle-om-next/commit/ea94287bb9acf6057273ae6db5c58ac6d06cb4b2#diff-59ac2781f662f112526300f4a4719b87R12"&gt;bit of hackery&lt;/a&gt; to ensure my project could be built for production without its development dependencies, despite the fact that references to development-only functions were contained in &lt;code&gt;defn&lt;/code&gt;&amp;rsquo;d fuctions that wouldn&amp;rsquo;t be called in production mode. Would love feedback on the right way to handle this.&lt;/p&gt;
-
-&lt;p&gt;In your main class that will run your server, add &lt;code&gt;(:gen-class)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;In the &lt;code&gt;:uberjar&lt;/code&gt; profile in &lt;code&gt;project.clj&lt;/code&gt;, this line will ensure that your production js gets included:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:prep-tasks&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"compile"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"cljsbuild"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"once"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"min"&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;See &lt;a href="https://github.com/emezeske/lein-cljsbuild/issues/366#issuecomment-134230350"&gt;this discussion&lt;/a&gt; for using this method over the Leiningen hook for cljsbuild.&lt;/p&gt;
-
-&lt;p&gt;Issue: I see multiple &amp;ldquo;Compiling [ns]&amp;hellip;&amp;rdquo; outputs for each namespace, despite no circular dependencies.  I&amp;rsquo;m not sure if this is a sign of something wrong, but everything seems to work.&lt;/p&gt;
-
-&lt;h2&gt;Provisioning with Ansible&lt;/h2&gt;
-
-&lt;p&gt;I did this on a DigitalOcean VPS running Ubuntu 15.10.  There will be differnces compared to older Ubuntu versions.&lt;/p&gt;
-
-&lt;p&gt;One particular one is that Ansible expects Python 2.x, and Ubuntu 15.10 ships with Python 3 as its default.  So step 0 is to log into the server and run: 
-&lt;code&gt;apt-get install python-simplejson&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Now you can create an Ansible playbook to provision the server.  This is beyond the scope of this README for the most part, but here&amp;rsquo;s a few notes just of what I learned. (TODO - still in progress)&lt;/p&gt;
-
-&lt;p&gt;I also wrote about doing so &lt;a href="http://jeremyraines.com/2014/09/13/deploying-a-microservice-with-ansible.html"&gt;in this blog post&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Need to check in on the db?
-&lt;code&gt;psql myapp -U myappuser -h 127.0.0.1 --password&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Organization of ansible roles
-http://docs.ansible.com/ansible/playbooks&lt;em&gt;best&lt;/em&gt;practices.html#task-and-handler-organization-for-a-role&lt;/p&gt;
-
-&lt;p&gt;Some helpful steps for setting java &amp;amp; lein with Ansible
-https://semaphoreci.com/community/tutorials/how-to-set-up-a-clojure-environment-with-ansible&lt;/p&gt;
 </content>
   </entry>
 </feed>

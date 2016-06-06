@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <link href="../../../stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/main.css" rel="stylesheet" type="text/css" />
+
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Jeremy Raines - core.async & http.kit API call caching function</title>
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+  </head>
+  <body>
+    <div id="main" role="main">
+      <p><img src="/images/function.png" style="width:500px"></p>
+
+<p><code>cache-fn</code> takes a function &ndash; which itself must return a channel &ndash; and returns a version of it that will cache results based on its arguments.</p>
+
+<p>It does this by returning a sort of &ldquo;promise&rdquo; result so that all consumers can get the value out of the result chan, not just the first one.</p>
+
+<p><code>promise-c</code> returns a channel that always returns the result value.</p>
+
+    </div>
+  </body>
+</html>
