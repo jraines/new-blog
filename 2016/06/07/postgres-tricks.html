@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <link href="../../../stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/main.css" rel="stylesheet" type="text/css" />
+
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Jeremy Raines - Postgres Tricks</title>
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+  </head>
+  <body>
+    <div id="main" role="main">
+      <h1>Postgres Tricks</h1>
+
+<h2>Upsert</h2>
+
+<p>To insert or update a given record, you need a constraint that will let the query know that the record already exists:</p>
+<pre><code class="highlight sql"><span class="k">insert</span> <span class="k">into</span> <span class="n">items</span> <span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">image_uid</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="k">on</span> <span class="n">conflict</span> <span class="k">on</span> <span class="k">constraint</span> <span class="n">unique_image_uid</span> <span class="k">do</span> <span class="k">update</span>
+<span class="k">set</span> <span class="n">updated_at</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span>
+<span class="n">returning</span> <span class="o">*</span>
+</code></pre>
+
+<p>Also note the <code>returning</code> part, which tells the query to return all the fields of the record whether it was created or updated.</p>
+
+<h2>Adding to an array without creating duplicates</h2>
+
+<p>First, create a function that can do this:</p>
+<pre><code class="highlight sql"><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">array_append_distinct</span><span class="p">(</span><span class="n">anyarray</span><span class="p">,</span> <span class="n">anyarray</span><span class="p">)</span>
+<span class="k">RETURNS</span> <span class="n">anyarray</span> <span class="k">AS</span> <span class="err">$$</span>
+  <span class="k">SELECT</span> <span class="n">ARRAY</span><span class="p">(</span><span class="k">SELECT</span> <span class="k">unnest</span><span class="p">(</span><span class="err">$</span><span class="mi">1</span><span class="p">)</span> <span class="k">union</span> <span class="k">SELECT</span> <span class="k">unnest</span><span class="p">(</span><span class="err">$</span><span class="mi">2</span><span class="p">))</span>
+<span class="err">$$</span> <span class="k">LANGUAGE</span> <span class="k">sql</span><span class="p">;</span>
+</code></pre>
+
+<p>Then, you can use it like:</p>
+<pre><code class="highlight sql"><span class="k">update</span> <span class="n">items</span> <span class="k">set</span> <span class="n">tags</span> <span class="o">=</span> <span class="n">array_append_distinct</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="p">(</span><span class="nv">"cool"</span><span class="p">,</span><span class="nv">"stuff"</span><span class="p">)</span> <span class="k">where</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre>
+
+<p>If the item was already tagged with &ldquo;cool&rdquo;, it won&rsquo;t now be &ldquo;cool, cool, &hellip;&rdquo;</p>
+
+<p>You may need to cast the second arg to the same type as whatever <code>tags</code> is, like <code>text[]</code></p>
+
+    </div>
+  </body>
+</html>
