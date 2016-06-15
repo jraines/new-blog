@@ -5,10 +5,79 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2016-06-07T11:36:00-07:00</updated>
+  <updated>2016-06-14T21:54:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Clojure snippet for transforming a list of maps to a map keyed by the :id of each</title>
+    <link rel="alternate" href="http://blog.url.com/2016/06/15/clojure-snippet-for-transforming-a-list-of-maps-to-a-map-keyed-by-the-id-of-each.html"/>
+    <id>http://blog.url.com/2016/06/15/clojure-snippet-for-transforming-a-list-of-maps-to-a-map-keyed-by-the-id-of-each.html</id>
+    <published>2016-06-14T21:54:00-07:00</published>
+    <updated>2016-06-14T21:55:40-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h2&gt;Transforming a list of maps to a map keyed by the :id of each&lt;/h2&gt;
+&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;into&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;juxt&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:id&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;identity&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;coll&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Thread-first macro for native objects -- doto</title>
+    <link rel="alternate" href="http://blog.url.com/2016/06/15/thread-first-macro-for-native-objects-doto.html"/>
+    <id>http://blog.url.com/2016/06/15/thread-first-macro-for-native-objects-doto.html</id>
+    <published>2016-06-14T21:39:00-07:00</published>
+    <updated>2016-06-14T21:58:43-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;From &lt;a href="https://clojuredocs.org/clojure.core/doto"&gt;the docs&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight plaintext"&gt;;; Note that even though println returns nil, doto still returns the HashMap object
+user&amp;gt; (doto (java.util.HashMap.)
+            (.put "a" 1)
+            (.put "b" 2)
+            (println))
+#&amp;lt;HashMap {b=2, a=1}&amp;gt;
+{"b" 2, "a" 1}
+
+;; Equivalent to
+user&amp;gt; (def m (java.util.HashMap.))
+user&amp;gt; (.put m "a" 1)
+user&amp;gt; (.put m "b" 2)
+user&amp;gt; m
+{"a" 1, "b" 2}
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Threading through functions with inconsistent positional args with as-&gt;</title>
+    <link rel="alternate" href="http://blog.url.com/2016/06/15/threading-through-functions-with-inconsistent-positional-args-with-as.html"/>
+    <id>http://blog.url.com/2016/06/15/threading-through-functions-with-inconsistent-positional-args-with-as.html</id>
+    <published>2016-06-14T21:31:00-07:00</published>
+    <updated>2016-06-14T21:35:41-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h2&gt;as-&amp;gt;&lt;/h2&gt;
+
+&lt;p&gt;Threading macro which gives an alias to the thing you&amp;rsquo;re passing through a series of functions.&lt;/p&gt;
+
+&lt;p&gt;Copied straight from &lt;a href="https://clojuredocs.org/clojure.core/as-%3E"&gt;the docs&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="c1"&gt;;; when you want to use arbitrary positioning of your argument in a thread macro
+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;as-&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="no"&gt;:a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:b&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;update&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;reduce&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;fn&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+
+&lt;/span&gt;&lt;span class="c1"&gt;;; when you'd like an if statement in your thread
+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;as-&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="no"&gt;:a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:b&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;update&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;update-b&lt;/span&gt;&lt;span class="w"&gt;
+    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;update&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:b&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+    &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>Postgres Tricks</title>
     <link rel="alternate" href="http://blog.url.com/2016/06/07/postgres-tricks.html"/>
@@ -94,58 +163,6 @@
 &lt;p&gt;&lt;code&gt;curl -O url&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Do not change the filename of the downloaded file. I always forget the correct option.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Getting a CSV of a query too big for Heroku Dataclips</title>
-    <link rel="alternate" href="http://blog.url.com/2016/04/15/heroku-getting-a-csv-of-a-too-big-for-dataclips-query.html"/>
-    <id>http://blog.url.com/2016/04/15/heroku-getting-a-csv-of-a-too-big-for-dataclips-query.html</id>
-    <published>2016-04-15T13:27:00-07:00</published>
-    <updated>2016-06-01T19:47:14-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;ol&gt;
-&lt;li&gt;Copy the query into a .sql file locally.&lt;/li&gt;
-&lt;li&gt;Remove all newlines, because psql&amp;rsquo;s &lt;code&gt;\copy&lt;/code&gt; command does not accept multiline arguments.&lt;/li&gt;
-&lt;li&gt;Surround the query with parens and the &lt;code&gt;\copy&lt;/code&gt; command, like so: &lt;code&gt;\copy (select ...) TO dump.csv CSV DELIMITER &amp;#39;,&amp;#39; HEADERS&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Make sure to use &lt;code&gt;as&lt;/code&gt; aliases for any column names that are the same across tables, because this method will not be as smart as Dataclips about distinguishing the column headers for those.&lt;/li&gt;
-&lt;li&gt;pipe it to psql: &lt;code&gt;cat jeans.sql | heroku pg:psql dbcolor -a yourapp&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</content>
-  </entry>
-  <entry>
-    <title>A good evaluation of the AlphaGo milestone</title>
-    <link rel="alternate" href="http://blog.url.com/2016/02/28/a-good-evaluation-of-the-alphago-milestone.html"/>
-    <id>http://blog.url.com/2016/02/28/a-good-evaluation-of-the-alphago-milestone.html</id>
-    <published>2016-02-28T15:49:00-08:00</published>
-    <updated>2016-02-28T15:55:00-08:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;p&gt;I believe the following is a reasonable take on what the AlphaGo program &amp;amp; win &amp;ldquo;means&amp;rdquo; for AI, regardless of whether it wins or loses vs. Lee Sedol:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&amp;hellip;progress so far has largely been toward demonstrating general approaches for building narrow systems rather than general approaches for building general systems. Progress toward the former does not entail substantial progress toward the latter. The latter, which requires transfer learning among other elements, has yet to have its Atari/AlphaGo moment, but is an important area to keep an eye on going forward, and may be especially relevant for economic/safety purposes. This suggests that an important element of rigorously modeling AI progress may be formalizing the idea of different levels of generality of operating AI systems (as opposed to the generality of the methods that produce them, though that is also important).&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href="http://www.milesbrundage.com/blog-posts/alphago-and-ai-progress"&gt;Source&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This opinion is based on my understanding of AlphaGo, which uses two neural networks, a value network and a policy network, trained on a corpus of Go games between experts, to narrow the search space to be explored by Monte Carlo tree search.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>A Lightweight Clojure/ClojureScript REPL for Atom</title>
-    <link rel="alternate" href="http://blog.url.com/2016/01/17/a-lightweight-clojure-clojurescript-repl-for-atom.html"/>
-    <id>http://blog.url.com/2016/01/17/a-lightweight-clojure-clojurescript-repl-for-atom.html</id>
-    <published>2016-01-17T12:18:00-08:00</published>
-    <updated>2016-01-17T12:23:27-08:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;p&gt;An Atom editor plugin I made, inspired by (and key parts lifted from) &lt;a href="https://www.github.com/jasongilman/proto-repl"&gt;Proto-REPL&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://atom.io/packages/repl-lite"&gt;REPL-lite&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
 </feed>

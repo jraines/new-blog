@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <link href="../../../stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/main.css" rel="stylesheet" type="text/css" />
+
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Jeremy Raines - Thread-first macro for native objects -- doto</title>
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+  </head>
+  <body>
+    <div id="main" role="main">
+      <p>From <a href="https://clojuredocs.org/clojure.core/doto">the docs</a></p>
+<pre><code class="highlight plaintext">;; Note that even though println returns nil, doto still returns the HashMap object
+user&gt; (doto (java.util.HashMap.)
+            (.put "a" 1)
+            (.put "b" 2)
+            (println))
+#&lt;HashMap {b=2, a=1}&gt;
+{"b" 2, "a" 1}
+
+;; Equivalent to
+user&gt; (def m (java.util.HashMap.))
+user&gt; (.put m "a" 1)
+user&gt; (.put m "b" 2)
+user&gt; m
+{"a" 1, "b" 2}
+</code></pre>
+
+    </div>
+  </body>
+</html>
