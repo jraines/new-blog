@@ -1,5 +1,5 @@
 ---
-title: Thread-first macro for native objects: doto
+title: Thread-first macro for native objects -- doto
 date: 2016-06-15 04:39 UTC
 tags: chain, clojure
 ---
