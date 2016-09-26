@@ -5,10 +5,66 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2016-06-14T21:54:00-07:00</updated>
+  <updated>2016-08-05T07:01:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Selected quotations from The Rise and Fall of the Third Reich</title>
+    <link rel="alternate" href="http://blog.url.com/2016/08/05/selected-quotations-from-the-rise-and-fall-of-the-third-reich.html"/>
+    <id>http://blog.url.com/2016/08/05/selected-quotations-from-the-rise-and-fall-of-the-third-reich.html</id>
+    <published>2016-08-05T07:01:00-07:00</published>
+    <updated>2016-09-26T13:57:12-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h2&gt;On the German Right&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;If the German Republic was bereft of a middle-of-the-road political class, it
+also lacked that stability provided in many other countries by a truly
+conservative party&amp;hellip; . at almost all times during the Weimar regime, they
+refused to take responsible positions either in government or in opposition . .
+. What [they] wanted was an end to the Republic and a return to an imperialist
+Germany in which all of their old privileges would be restored.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2&gt;On the danger of access to state power&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;For the first time&amp;ndash;in the last relatively free election Germany was to
+have&amp;ndash;the Nazi Party now could employ all the vast resources of the government
+to win votes.  &amp;ldquo;Now it will be easy&amp;rdquo;, Goebbels wrote in his journal, &amp;ldquo;to carry
+on the fight, for we can call on all the resources of the State.  Radio and
+press are at our disposal.  We shall stage a masterpiece of propaganda.&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2&gt;On life under an effective propaganda regime&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Often in a German home or office, or sometimes in a casual conversation with a
+stranger in a restaurant, a beer hall, a cafe, I would meet with the most
+outlandish assertions from seemingly educated and intelligent persons.  It was
+obvious they were parroting some piece of nonsense they had heard on the radio
+or read in the newspapers.  Sometimes one was tempted to say as much, but on
+such occasions one was met with such a stare of incredulity, such a shock of
+silence, as if one had blasphemed the Almighty, that one realized how useless it
+was to even try to make contact with a mind which had become warped and for
+whom the facts of life had become what Hitler and Goebbels, with their cynical
+disregard for truth, said they were.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2&gt;On the appeal of facsism to a beleagured working class&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Tied down by so many controls at wages little above the subsistence level, the
+German workers, like the Roman proletariat, were provided with circuses by their
+rulers to divert attention from their miserable state.  &amp;ldquo;We had to divert the
+attention of the masses from material to moral values&amp;rdquo;, Dr. Ley once explained,
+&amp;ldquo;It is more important to feed the souls of men than their stomachs.&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+  </entry>
   <entry>
     <title>Clojure snippet for transforming a list of maps to a map keyed by the :id of each</title>
     <link rel="alternate" href="http://blog.url.com/2016/06/15/clojure-snippet-for-transforming-a-list-of-maps-to-a-map-keyed-by-the-id-of-each.html"/>
@@ -135,34 +191,6 @@ user&amp;gt; m
 &lt;p&gt;It does this by returning a sort of &amp;ldquo;promise&amp;rdquo; result so that all consumers can get the value out of the result chan, not just the first one.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;promise-c&lt;/code&gt; returns a channel that always returns the result value.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>More useful shell incantations</title>
-    <link rel="alternate" href="http://blog.url.com/2016/06/02/more-useful-shell-incantations.html"/>
-    <id>http://blog.url.com/2016/06/02/more-useful-shell-incantations.html</id>
-    <published>2016-06-01T19:48:00-07:00</published>
-    <updated>2016-06-01T19:55:17-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h2&gt;More useful shell incantations&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;ls -ltr&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;List dir contents in descending order by date modified&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;zip -Dr zipdest.zip /zipsource/stuff&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Recursively zip contents of a directory but flatten out paths so all files are at one level in the zip file.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;rename &amp;#39;s/.png.+/.png/&amp;#39; *&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Rename files based on regex substitution pattern. Note for this you should not use the old &lt;code&gt;rename&lt;/code&gt; binary.  The perl one is available via Homebrew: &lt;code&gt;brew install rename&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;curl -O url&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Do not change the filename of the downloaded file. I always forget the correct option.&lt;/p&gt;
 </content>
   </entry>
 </feed>
