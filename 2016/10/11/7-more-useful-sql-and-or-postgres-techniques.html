@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <link href="../../../stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/main.css" rel="stylesheet" type="text/css" />
+
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Jeremy Raines - 7 More Useful SQL and/or Postgres Techniques</title>
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+  </head>
+  <body>
+    <div id="main" role="main">
+      <h1>7 More Useful SQL and/or Postgres Techniques</h1>
+
+<h2>1) Returning structured data from relations with <code>json_agg</code></h2>
+
+<p>Let&rsquo;s say we have an outfit and we want to return its id and a json string with data
+from all of that outfit&rsquo;s associated items.</p>
+
+<p>The following shows an example where you only want a subset of the items&#39; columns:</p>
+<pre><code class="highlight sql"><span class="k">select</span> <span class="n">outfits</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+       <span class="p">(</span><span class="k">select</span> <span class="n">json_agg</span><span class="p">((</span><span class="k">select</span> <span class="n">item_stub</span>
+                                      <span class="k">from</span> <span class="p">(</span><span class="k">select</span> <span class="n">items</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+                                                   <span class="n">items</span><span class="p">.</span><span class="n">buy_url</span><span class="p">,</span>
+                                                   <span class="n">items</span><span class="p">.</span><span class="n">brand</span><span class="p">,</span>
+                                                   <span class="n">items</span><span class="p">.</span><span class="n">category</span><span class="p">,</span>
+                                                   <span class="n">items</span><span class="p">.</span><span class="n">image_url</span><span class="p">,</span>
+                                                   <span class="n">items</span><span class="p">.</span><span class="n">price</span><span class="p">)</span> <span class="n">item_stub</span><span class="p">))</span>
+        <span class="k">from</span> <span class="n">outfit_items</span>
+        <span class="k">join</span> <span class="n">items</span> <span class="k">on</span> <span class="n">items</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">outfit_items</span><span class="p">.</span><span class="n">item_id</span>
+        <span class="k">where</span> <span class="n">outfit_items</span><span class="p">.</span><span class="n">outfit_id</span> <span class="o">=</span> <span class="n">outfits</span><span class="p">.</span><span class="n">id</span>
+      <span class="p">)</span> <span class="k">as</span> <span class="n">items</span>
+<span class="k">from</span> <span class="n">outfits</span><span class="p">;</span>
+</code></pre>
+
+<h2>2) Querying an array field&rsquo;s length.</h2>
+
+<p>Assuming <code>tags</code> is a flat, one dimensional array, how many outfits have any tags?</p>
+<pre><code class="highlight sql"><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">outfits</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">array_length</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">is</span> <span class="k">null</span>
+</code></pre>
+
+<h2>3) Counting conditionally with <code>case</code></h2>
+<pre><code class="highlight sql"><span class="k">select</span> <span class="k">sum</span><span class="p">(</span><span class="k">case</span> <span class="k">when</span> <span class="n">mobile</span> <span class="o">=</span> <span class="k">true</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">end</span><span class="p">)</span> <span class="k">as</span> <span class="n">mobile_count</span>
+<span class="k">from</span> <span class="n">impressions</span><span class="p">;</span>
+</code></pre>
+
+<h2>4) Set-like array append (no duplicates)</h2>
+
+<p>Create an <code>array_append_distinct</code> function with</p>
+<pre><code class="highlight sql"><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">array_append_distinct</span><span class="p">(</span><span class="n">anyarray</span><span class="p">,</span> <span class="n">anyarray</span><span class="p">)</span>
+<span class="k">RETURNS</span> <span class="n">anyarray</span> <span class="k">AS</span> <span class="err">$$</span>
+  <span class="k">SELECT</span> <span class="n">ARRAY</span><span class="p">(</span><span class="k">SELECT</span> <span class="k">unnest</span><span class="p">(</span><span class="err">$</span><span class="mi">1</span><span class="p">)</span> <span class="k">union</span> <span class="k">SELECT</span> <span class="k">unnest</span><span class="p">(</span><span class="err">$</span><span class="mi">2</span><span class="p">))</span>
+<span class="err">$$</span> <span class="k">LANGUAGE</span> <span class="k">sql</span><span class="p">;</span>
+</code></pre>
+
+<p>Then use it like this:</p>
+<pre><code class="highlight sql"><span class="k">update</span> <span class="n">items</span> <span class="k">set</span> <span class="n">tags</span> <span class="o">=</span> <span class="n">array_append_distinct</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="k">CAST</span><span class="p">(</span><span class="n">ARRAY</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">,</span><span class="s1">'bar'</span><span class="p">]</span> <span class="k">as</span> <span class="n">text</span><span class="p">[]))</span>
+</code></pre>
+
+<h2>5) Removing duplicate associations from a join table</h2>
+<pre><code class="highlight sql"><span class="k">delete</span> <span class="k">from</span> <span class="n">outfit_items</span> <span class="k">where</span> <span class="n">id</span> <span class="k">in</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="n">o1</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">from</span> <span class="n">outfit_items</span> <span class="n">o1</span>
+  <span class="k">join</span> <span class="n">outfit_items</span> <span class="n">o2</span>
+    <span class="k">on</span> <span class="n">o1</span><span class="p">.</span><span class="n">outfit_id</span> <span class="o">=</span> <span class="n">o2</span><span class="p">.</span><span class="n">outfit_id</span>
+    <span class="k">and</span> <span class="n">o2</span><span class="p">.</span><span class="n">item_id</span> <span class="o">=</span> <span class="n">o1</span><span class="p">.</span><span class="n">item_id</span>
+  <span class="k">where</span> <span class="n">o1</span><span class="p">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">o2</span><span class="p">.</span><span class="n">id</span><span class="p">);</span>
+</code></pre>
+
+<h2>6) Get column names for a table</h2>
+<pre><code class="highlight sql"><span class="k">select</span> <span class="k">column_name</span>
+<span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">columns</span>
+<span class="k">where</span> <span class="k">table_name</span><span class="o">=</span><span class="s1">'items'</span>
+</code></pre>
+
+<h2>7) Get list of all databases and their users</h2>
+
+<p>In psql:  <code>\l</code></p>
+
+    </div>
+  </body>
+</html>
