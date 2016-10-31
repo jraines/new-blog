@@ -5,10 +5,24 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2016-10-10T18:28:00-07:00</updated>
+  <updated>2016-10-31T16:30:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>FILTER clauses in Postgres 9.4+</title>
+    <link rel="alternate" href="http://blog.url.com/2016/10/31/filter-clauses-in-postgres-9-4.html"/>
+    <id>http://blog.url.com/2016/10/31/filter-clauses-in-postgres-9-4.html</id>
+    <published>2016-10-31T16:30:00-07:00</published>
+    <updated>2016-10-31T16:32:53-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;FILTER clauses&lt;/h1&gt;
+
+&lt;p&gt;In Postgres 9.4, aggregate functions can take FILTER clauses that replace the functionality previously provided by &lt;code&gt;sum(case foo when bar then 1 else 0 end)&lt;/code&gt; like so:  &lt;code&gt;count(1) filter (where foo is bar)&lt;/code&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>7 More Useful SQL and/or Postgres Techniques</title>
     <link rel="alternate" href="http://blog.url.com/2016/10/11/7-more-useful-sql-and-or-postgres-techniques.html"/>
@@ -210,47 +224,6 @@ user&amp;gt; m
     &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;update&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:b&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
     &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Postgres Tricks</title>
-    <link rel="alternate" href="http://blog.url.com/2016/06/07/postgres-tricks.html"/>
-    <id>http://blog.url.com/2016/06/07/postgres-tricks.html</id>
-    <published>2016-06-07T11:36:00-07:00</published>
-    <updated>2016-06-07T11:47:57-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h1&gt;Postgres Tricks&lt;/h1&gt;
-
-&lt;h2&gt;Upsert&lt;/h2&gt;
-
-&lt;p&gt;To insert or update a given record, you need a constraint that will let the query know that the record already exists:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight sql"&gt;&lt;span class="k"&gt;insert&lt;/span&gt; &lt;span class="k"&gt;into&lt;/span&gt; &lt;span class="n"&gt;items&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;image_uid&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;values&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="n"&gt;conflict&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="k"&gt;constraint&lt;/span&gt; &lt;span class="n"&gt;unique_image_uid&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="k"&gt;update&lt;/span&gt;
-&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="n"&gt;updated_at&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;returning&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Also note the &lt;code&gt;returning&lt;/code&gt; part, which tells the query to return all the fields of the record whether it was created or updated.&lt;/p&gt;
-
-&lt;h2&gt;Adding to an array without creating duplicates&lt;/h2&gt;
-
-&lt;p&gt;First, create a function that can do this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight sql"&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;OR&lt;/span&gt; &lt;span class="k"&gt;REPLACE&lt;/span&gt; &lt;span class="k"&gt;FUNCTION&lt;/span&gt; &lt;span class="n"&gt;array_append_distinct&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;anyarray&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;anyarray&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;RETURNS&lt;/span&gt; &lt;span class="n"&gt;anyarray&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="err"&gt;$$&lt;/span&gt;
-  &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="n"&gt;ARRAY&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;unnest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;union&lt;/span&gt; &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;unnest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="err"&gt;$$&lt;/span&gt; &lt;span class="k"&gt;LANGUAGE&lt;/span&gt; &lt;span class="k"&gt;sql&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then, you can use it like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight sql"&gt;&lt;span class="k"&gt;update&lt;/span&gt; &lt;span class="n"&gt;items&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="n"&gt;tags&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;array_append_distinct&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tags&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;"cool"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nv"&gt;"stuff"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If the item was already tagged with &amp;ldquo;cool&amp;rdquo;, it won&amp;rsquo;t now be &amp;ldquo;cool, cool, &amp;hellip;&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;You may need to cast the second arg to the same type as whatever &lt;code&gt;tags&lt;/code&gt; is, like &lt;code&gt;text[]&lt;/code&gt;&lt;/p&gt;
 </content>
   </entry>
 </feed>
