@@ -18,7 +18,13 @@
     <div id="main" role="main">
       <h1>FILTER clauses</h1>
 
-<p>In Postgres 9.4, aggregate functions can take FILTER clauses that replace the functionality previously provided by <code>sum(case foo when bar then 1 else 0 end)</code> like so:  <code>count(1) filter (where foo is bar)</code></p>
+<p>In Postgres 9.4, aggregate functions can take FILTER clauses that replace the functionality previously provided by </p>
+<pre><code class="highlight sql"><span class="k">sum</span><span class="p">(</span><span class="k">case</span> <span class="n">foo</span> <span class="k">when</span> <span class="n">bar</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">end</span><span class="p">)</span>
+</code></pre>
+
+<p>like so:</p>
+<pre><code class="highlight sql"><span class="k">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">filter</span> <span class="p">(</span><span class="k">where</span> <span class="n">foo</span> <span class="k">is</span> <span class="n">bar</span><span class="p">)</span><span class="nv">`
+</span></code></pre>
 
     </div>
   </body>

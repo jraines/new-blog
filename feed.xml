@@ -118,13 +118,19 @@
     <link rel="alternate" href="http://blog.url.com/2016/10/31/filter-clauses-in-postgres-9-4.html"/>
     <id>http://blog.url.com/2016/10/31/filter-clauses-in-postgres-9-4.html</id>
     <published>2016-10-31T16:30:00-07:00</published>
-    <updated>2016-10-31T16:32:53-07:00</updated>
+    <updated>2016-10-31T21:13:40-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
     <content type="html">&lt;h1&gt;FILTER clauses&lt;/h1&gt;
 
-&lt;p&gt;In Postgres 9.4, aggregate functions can take FILTER clauses that replace the functionality previously provided by &lt;code&gt;sum(case foo when bar then 1 else 0 end)&lt;/code&gt; like so:  &lt;code&gt;count(1) filter (where foo is bar)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In Postgres 9.4, aggregate functions can take FILTER clauses that replace the functionality previously provided by &lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight sql"&gt;&lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="k"&gt;when&lt;/span&gt; &lt;span class="n"&gt;bar&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="k"&gt;end&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight sql"&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;filter&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;`
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 </content>
   </entry>
   <entry>
