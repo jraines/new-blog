@@ -5,10 +5,59 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2016-10-31T16:37:00-07:00</updated>
+  <updated>2016-10-31T18:23:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>SVG icons with mask-image</title>
+    <link rel="alternate" href="http://blog.url.com/2016/11/01/svg-icons-with-mask-image.html"/>
+    <id>http://blog.url.com/2016/11/01/svg-icons-with-mask-image.html</id>
+    <published>2016-10-31T18:23:00-07:00</published>
+    <updated>2016-10-31T19:02:08-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;CSS tricks&lt;/h1&gt;
+
+&lt;p&gt;This example features:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Responsive square with vw unit height/widget&lt;/li&gt;
+&lt;li&gt;Looping animation&lt;/li&gt;
+&lt;li&gt;Radial gradient background&lt;/li&gt;
+&lt;li&gt;SVG icon with &lt;code&gt;mask-image&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div id="mapicon-wrapper"&gt;
+  &lt;div id="mapicon"&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class="highlight sass"&gt;&lt;span class="nn"&gt;#mapicon-wrapper&lt;/span&gt;
+  &lt;span class="nl"&gt;border&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="m"&gt;3px&lt;/span&gt; &lt;span class="no"&gt;green&lt;/span&gt; &lt;span class="nb"&gt;solid&lt;/span&gt;
+  &lt;span class="nl"&gt;display&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;inline-block&lt;/span&gt;
+  &lt;span class="nl"&gt;background-image&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nf"&gt;radial-gradient&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;farthest-corner&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="mi"&gt;.75vw&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="mi"&gt;.25vw&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="no"&gt;green&lt;/span&gt; &lt;span class="m"&gt;0%&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="no"&gt;yellow&lt;/span&gt; &lt;span class="m"&gt;100%&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nl"&gt;padding&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="m"&gt;2vw&lt;/span&gt;
+
+&lt;span class="nn"&gt;#mapicon&lt;/span&gt;
+  &lt;span class="na"&gt;-webkit-mask-image&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="sx"&gt;url(/images/mapicon.svg)&lt;/span&gt;
+  &lt;span class="nl"&gt;width&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="m"&gt;10vw&lt;/span&gt;
+  &lt;span class="nl"&gt;height&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="m"&gt;10vw&lt;/span&gt;
+  &lt;span class="na"&gt;mask-image&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="sx"&gt;url(/images/mapicon.svg)&lt;/span&gt;
+  &lt;span class="nl"&gt;animation&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;my-animation&lt;/span&gt; &lt;span class="m"&gt;3s&lt;/span&gt;
+  &lt;span class="nl"&gt;animation-iteration-count&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;
+
+&lt;span class="k"&gt;@keyframes&lt;/span&gt; &lt;span class="nt"&gt;my-animation&lt;/span&gt;
+  &lt;span class="nt"&gt;0&lt;/span&gt;&lt;span class="nv"&gt;%&lt;/span&gt;
+    &lt;span class="nl"&gt;background&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="no"&gt;green&lt;/span&gt;
+  &lt;span class="nt"&gt;50&lt;/span&gt;&lt;span class="nv"&gt;%&lt;/span&gt;
+    &lt;span class="nl"&gt;background&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="no"&gt;yellow&lt;/span&gt;
+  &lt;span class="nt"&gt;100&lt;/span&gt;&lt;span class="nv"&gt;%&lt;/span&gt;
+    &lt;span class="nl"&gt;background&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="no"&gt;green&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>clojure.core.cache</title>
     <link rel="alternate" href="http://blog.url.com/2016/10/31/clojure-core-cache.html"/>
@@ -224,33 +273,6 @@ attention of the masses from material to moral values&amp;rdquo;, Dr. Ley once e
     <content type="html">&lt;h2&gt;Transforming a list of maps to a map keyed by the :id of each&lt;/h2&gt;
 &lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;into&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;juxt&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:id&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;identity&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;coll&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Thread-first macro for native objects -- doto</title>
-    <link rel="alternate" href="http://blog.url.com/2016/06/15/thread-first-macro-for-native-objects-doto.html"/>
-    <id>http://blog.url.com/2016/06/15/thread-first-macro-for-native-objects-doto.html</id>
-    <published>2016-06-14T21:39:00-07:00</published>
-    <updated>2016-06-14T21:58:43-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;p&gt;From &lt;a href="https://clojuredocs.org/clojure.core/doto"&gt;the docs&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class="highlight plaintext"&gt;;; Note that even though println returns nil, doto still returns the HashMap object
-user&amp;gt; (doto (java.util.HashMap.)
-            (.put "a" 1)
-            (.put "b" 2)
-            (println))
-#&amp;lt;HashMap {b=2, a=1}&amp;gt;
-{"b" 2, "a" 1}
-
-;; Equivalent to
-user&amp;gt; (def m (java.util.HashMap.))
-user&amp;gt; (.put m "a" 1)
-user&amp;gt; (.put m "b" 2)
-user&amp;gt; m
-{"a" 1, "b" 2}
-&lt;/code&gt;&lt;/pre&gt;
 </content>
   </entry>
 </feed>
