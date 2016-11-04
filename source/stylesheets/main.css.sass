@@ -31,6 +31,9 @@ $photo:     "/images/jr.png"
   display: inline-block
   margin-left: 40px
 
+code
+  background: #fbebc2
+
 body
   font-family: Arial, sans-serif
   background: #FDF6E3
@@ -107,15 +110,22 @@ p
     background: green
 
 #main
-  width: 625px
+  width: 725px
   margin: auto
   margin-top: 20px
   padding: 10px
+  ul
+    margin-bottom: 16px
+  li
+    list-style-type: disc
+    list-style-position: inside
+    text-indent: -2em
+    padding-left: 1em
 
   blockquote
     font-style: italic
     color: black
-    font-size: 20px
+    font-size: 16px
     padding: 12px
     line-height: 30px
     border-top: thin solid darkgoldenrod
@@ -141,9 +151,13 @@ p
     line-height: 1.2em
     font-weight: bold
 
+  .twitter-tweet
+    margin-bottom: 50px!important
+
   h2
     color: $violet
     font-size: 26px
+    line-height: 32px
     padding: 24px 0 28px 0
 
   h3
@@ -155,17 +169,6 @@ p
     color: $violet
     font-size: 22px
     padding: 16px 0 0 0
-
-  ul
-    margin: 18px 0 18px 0
-    list-style-position: inside
-    li
-      margin-bottom: 26px
-
-  ul.articles
-    li
-      margin-bottom: 4px
-      font-size: 16px
 
 hr
   margin-bottom: 15px
