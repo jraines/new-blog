@@ -5,10 +5,356 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2016-10-31T18:23:00-07:00</updated>
+  <updated>2016-11-03T21:03:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>How To Go From Beginner To Intermediate Web Developer</title>
+    <link rel="alternate" href="http://blog.url.com/2016/11/04/how-to-go-from-beginner-to-intermediate-web-developer.html"/>
+    <id>http://blog.url.com/2016/11/04/how-to-go-from-beginner-to-intermediate-web-developer.html</id>
+    <published>2016-11-03T21:03:00-07:00</published>
+    <updated>2016-11-04T12:09:06-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h1&gt;How To Go From Beginner To Intermediate Web Developer&lt;/h1&gt;
+
+&lt;p&gt;A developer bootcamp grad who is a little more than six months into their first
+developer job recently asked me how they can go from a beginner to an
+intermediate level.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s a great question, one that I&amp;rsquo;m sure all junior developers ask themselves in
+their first year on the job, especially when feeling overwhelmed by all the
+advice and ambient pressure to both strengthen their fundamentals and learn new
+skills and technologies.&lt;/p&gt;
+
+&lt;p&gt;The first thing that jumped to mind was John Allspaw&amp;rsquo;s excellent blog post &lt;a href="http://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/"&gt;On
+Being a Senior Engineer&lt;/a&gt;.
+However, while it is not too early to read that post and come back to it as you
+grow in your career, it&amp;rsquo;s not quite the advice that was being sought by the
+developer.&lt;/p&gt;
+
+&lt;p&gt;This post is my attempt to provide that advice.&lt;/p&gt;
+
+&lt;h2&gt;Get Comfortable With Being Uncomfortable&lt;/h2&gt;
+
+&lt;p&gt;When I was a competitive swimmer in college, I was basically sore about 95% of
+the time. Just like your body, your mind must be challenge to adapt to the
+specific stresses you&amp;rsquo;re going to put on it. As a developer, for at least the
+first half decade of your career and probably longer, you will live at the
+boundary of your ability to grasp all the concepts needed for your work and your
+ability to put those into action in the form of code.&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;This is what programming is really like. &lt;a href="http://t.co/jNgPZjpqmy"&gt;pic.twitter.com/jNgPZjpqmy&lt;/a&gt;&lt;/p&gt;&amp;mdash; ☢️Brendan McAdams☢️ (@rit) &lt;a href="https://twitter.com/rit/status/549814266094551040"&gt;December 30, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;h2&gt;Code Every Day&lt;/h2&gt;
+
+&lt;p&gt;You won&amp;rsquo;t fall behind if you don&amp;rsquo;t code on weekends, but you&amp;rsquo;ll benefit if you
+do, even if it&amp;rsquo;s for 10-20 minutes. This could be any number of things, or
+ideally a balance of many, such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Cleanup of the code you wrote on Friday when your brain was fried.&lt;/li&gt;
+&lt;li&gt;A code kata on a site like &lt;a href="https://www.codewars.com/"&gt;CodeWars&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;If you do a lot of backend or line of business code in your day job, something
+visual like a simple HTML Canvas game or data visualization.&lt;/li&gt;
+&lt;li&gt;A side project, even if it&amp;rsquo;s rewriting your personal blog. (In fact, rewriting
+or significantly refactoring something you know well every few months is a
+great exercise to practice applying things you&amp;rsquo;ve just learned or have a better
+grasp on since the last time.)&lt;/li&gt;
+&lt;li&gt;Something that&amp;rsquo;ll be useful to you &lt;em&gt;soon&lt;/em&gt;, even if the effort outweighs the benefit or there&amp;rsquo;s already an off-the-shelf way&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;cool to be a nerd: just wrote a script to rename pics to their sha1 sum so that they&amp;rsquo;d be shown randomly during my wedding :)&lt;/p&gt;&amp;mdash; Shilo Ayalon (@shiloa) &lt;a href="https://twitter.com/shiloa/status/16286173380"&gt;June 16, 2010&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&amp;ldquo;If you hear a voice within you say &amp;lsquo;you cannot paint,&amp;rsquo; then by all means paint and that voice will be silenced.&amp;rdquo; ~Vincent Van Gogh&lt;/p&gt;&amp;mdash; Brian Clark (@brianclark) &lt;a href="https://twitter.com/brianclark/status/854853743"&gt;July 10, 2008&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;If you have a particularly limited amound of free time and need that time to
+refresh, don&amp;rsquo;t worry about it. Recovery time is important for growth and
+adaptation, so if the choice really is between coding time or family time (and
+otherwise keeping yourself sane and healthy), then definitely choose the latter.&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;“Software development is a game of insight, and insight comes to the prepared, rested, relaxed mind.” &amp;ndash; Kent Beck&lt;/p&gt;&amp;mdash; Bozhidar Batsov (@bbatsov) &lt;a href="https://twitter.com/bbatsov/status/574269272710606849"&gt;March 7, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;h2&gt;Read and Watch Lots of Learning Material&lt;/h2&gt;
+
+&lt;p&gt;Don&amp;rsquo;t put too much emphasis on crafting the perfect curriculum for yourself.
+Just be curious and follow threads that interest you. Do not let this advice
+conflict with the previous bit about writing code:  don&amp;rsquo;t watch 20 YouTube tutorials on Machine
+Learning or React or whatever without putting down some code.  That will help
+you retain what you&amp;rsquo;ve learned; but retention &amp;ndash; at least conscious, confident
+retention &amp;ndash; is &lt;em&gt;not&lt;/em&gt; the primary goal here. The primary goal is building a base
+of dots &amp;ndash; you&amp;rsquo;ll connect them later at unexpected times.&lt;/p&gt;
+
+&lt;p&gt;Another valuable skill you&amp;rsquo;ll eventually develop from this (over time, in
+concert with your working experience) is the ability to listen to someone who
+sounds authoritative talk about an idea or practice and say to yourself, &amp;ldquo;You
+know what?  This is bullshit.&amp;rdquo;&lt;/p&gt;
+
+&lt;h2&gt;Write Things Down&lt;/h2&gt;
+
+&lt;p&gt;Take notes or keep a blog, this will help with both retention and
+dot-connecting later. Use &lt;a href="http://www.pinboard.in"&gt;pinboard&lt;/a&gt; or similar
+to organize bookmarks.&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&amp;ldquo;The true purpose of note-taking is transporting states of mind (not just information) through time.&amp;rdquo;&lt;/p&gt;&amp;mdash; Alexis Gallagher (@alexisgallagher) &lt;a href="https://twitter.com/alexisgallagher/status/693643874825170945"&gt;January 31, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&amp;ldquo;My pencil and I are more clever than I.&amp;rdquo; - Albert Einstein&lt;/p&gt;&amp;mdash; Aycan Gulez (@aycangulez) &lt;a href="https://twitter.com/aycangulez/status/775764888253767680"&gt;September 13, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;Did they have highlighters in Einstein&amp;rsquo;s time? Because another thing I&amp;rsquo;d
+recommend is buying physical copies of your programming books and liberally
+highlighting/dog-earing the parts you find useful.&lt;/p&gt;
+
+&lt;h2&gt;Use StackOverflow Correctly&lt;/h2&gt;
+
+&lt;p&gt;Upvote every question and answer that you find useful. This is both good
+developer citizenship and will help you find it again two years later when you
+hit the same problem and have forgotten the solution.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Never copy and paste code unless/until you understand every line of what it
+does.&lt;/em&gt;&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;You haven’t fixed it if you can’t explain it.&lt;/p&gt;&amp;mdash; Sam Stephenson (@sstephenson) &lt;a href="https://twitter.com/sstephenson/status/343227982380417024"&gt;June 8, 2013&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;When you do crib some code, or even write your own based on an answer, include
+a link to the relevant question/answer in your git commit message.&lt;/p&gt;
+
+&lt;p&gt;When you ask a question, put some thought and effort into it and follow
+&lt;a href="http://stackoverflow.com/help/how-to-ask"&gt;their guidelines on how to ask a good question&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;More often than you think, simply taking this effort to formulate and
+communicate your problem will lead you to a solution before you even post the
+question.&lt;/p&gt;
+
+&lt;h2&gt;Get Better At git&lt;/h2&gt;
+
+&lt;p&gt;There is much to say here, so I&amp;rsquo;ll try to keep it to a bare minimum.&lt;/p&gt;
+
+&lt;p&gt;Make a conscious effort, all the time, to keep your commits small and
+conceptually unitary. Big chunks of work that are related in a high-level sense
+are why we have branches. If your branch about adding, say, a login page has 10
+commits on it, and you think that&amp;rsquo;s too granular or you have commits like &amp;ldquo;Fixes
+file name to match Rails convention&amp;rdquo;, you can always squash those down with a
+rebase before the merge. You&amp;rsquo;ll get the added benefits of more granular ability
+to revert parts of a larger changeset and a more precise &lt;code&gt;git
+bisect&lt;/code&gt; when tracking down the commit that introduced some bug.&lt;/p&gt;
+
+&lt;p&gt;Also,&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Learn to use &lt;code&gt;git bisect&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Use branches.&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;git add -p&lt;/code&gt; for when you forget the above advice about keeping commits small and conceptually unitary. It will let you make them so, after the fact.&lt;/li&gt;
+&lt;li&gt;Understand what rebase does.&lt;/li&gt;
+&lt;li&gt;Know how to use &lt;code&gt;git rebase --interactive&lt;/code&gt; beyond just squashing.&lt;/li&gt;
+&lt;li&gt;Rebase frequently if master is your base branch is master or another shared
+branch.&lt;/li&gt;
+&lt;li&gt;Write &lt;a href="http://chris.beams.io/posts/git-commit/"&gt;good commit messages&lt;/a&gt; unless you&amp;rsquo;re 100% sure they&amp;rsquo;ll be removed in
+rebase.&lt;/li&gt;
+&lt;li&gt;I could keep going for 50 more bullets but &lt;a href="https://github.com/git-tips/tips"&gt;here&amp;rsquo;s&lt;/a&gt; a few &lt;a href="https://guides.github.com/introduction/flow/"&gt;good&lt;/a&gt; &lt;a href="http://mislav.net/2014/02/hidden-documentation/"&gt;resources&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Get Better at Your Text Editor&lt;/h2&gt;
+
+&lt;p&gt;I won&amp;rsquo;t weigh in on which editor to choose, but whichever
+&lt;a href="http://www.vim.org/"&gt;it&lt;/a&gt; is, become a power user. Just do it: beyond the
+initial pain, it&amp;rsquo;s pretty fun in and of itself aside, from making you more
+productive. The combination of those two properties is why you see so many
+(overly) passionate arguments about text editors.&lt;/p&gt;
+
+&lt;h2&gt;Embrace Testing&lt;/h2&gt;
+
+&lt;p&gt;Again, understand that you will not feel comfortable at first. But start today.
+I&amp;rsquo;m going to quote at length from Russ Olsen&amp;rsquo;s excellent &lt;a href="https://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional/dp/0321584104"&gt;Eloquent Ruby&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Although the ideal set of unit tests will cover all of the significant
+features of your code, sometimes you can&amp;rsquo;t get anywhere near it: The bug fix
+needs to go out, or the release is late, or your coworkers are just not that
+into the whole testing thing. What to do? Well, write whatever tests you can.
+As an absolute minimum, just write a unit test that exercises the code a
+little, with no asserts at all. For example, look at this seemingly worthless
+spec:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class="highlight ruby"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'document'&lt;/span&gt;
+&lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="no"&gt;Document&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="s1"&gt;'should not catch fire when you create an instance'&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="no"&gt;Document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'title'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'author'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'stuff'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;should_not&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="kp"&gt;nil&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;While far, far from ideal, this spec actually does more than you might think.
+If it runs successfully, you will know:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Document is a class&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The Document class is indeed found in the document.rb file&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The document.rb file didn&amp;rsquo;t contain any really egregious Ruby syntax errors&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Document.new will take three arguments&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In addition to making you more confident about your code and more secure against
+introducing regressions, embracing testing can help you build the habit of good
+git practices, particularly the small commits as mentioned above. In a Test
+Driven Development style, that would mean:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Make a feature branch&lt;/li&gt;
+&lt;li&gt;Write a failing test&lt;/li&gt;
+&lt;li&gt;Commit&lt;/li&gt;
+&lt;li&gt;Write code to implement that functionality and make the test pass&lt;/li&gt;
+&lt;li&gt;Commit&lt;/li&gt;
+&lt;li&gt;Refactor the code for clarity, modularity, speed, etc.&lt;/li&gt;
+&lt;li&gt;Commit&lt;/li&gt;
+&lt;li&gt;Rebase and squash all this into one commit describing this piece of the
+feature.&lt;/li&gt;
+&lt;li&gt;Repeat, possibly with another higher-level rebase at the very end, but still being
+mindful of cohesiveness and the size of the diff per commit.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You don&amp;rsquo;t &lt;em&gt;have to&lt;/em&gt; write tests first. Personally, I think you should try, but
+don&amp;rsquo;t let that or any bold claims about the superiority of tests-first (which
+can be valid!) stop you from writing &lt;em&gt;any&lt;/em&gt; tests if you happen to write the
+implementation first.&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Want to know how to stop writing tests that are a mess of mocks? Stop writing classes that are a mess of dependencies!&lt;/p&gt;&amp;mdash; Ryan Bergman (@ryber) &lt;a href="https://twitter.com/ryber/status/123954478352306176"&gt;October 12, 2011&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;If you *ever* see an exception in the browser while developing a Rails app, stop and write a failing test for it.&lt;/p&gt;&amp;mdash; Ryan Bates (@rbates) &lt;a href="https://twitter.com/rbates/status/59323715858595840"&gt;April 16, 2011&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;h2&gt;Learn To Use The Browser&amp;rsquo;s Developer Tools&lt;/h2&gt;
+
+&lt;p&gt;The developer tools that ship with modern browsers are incredibly powerful. In
+addition to the typical inspection and tweaking of HTML and CSS, you can do
+things like:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;See what the website looks like on &lt;a href="https://developers.google.com/web/tools/chrome-devtools/device-mode/"&gt;different devices&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/network-conditions"&gt;Simulate a slow network connection&lt;/a&gt;
+to see what your site is like on, well, more connections than you probably think.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developers.google.com/web/tools/chrome-devtools/javascript/add-breakpoints"&gt;Set breakpoints&lt;/a&gt; in your JavaScript&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/resource-loading"&gt;Inspect all network requests&lt;/a&gt; your page is making&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Learn To Use A Debugger&lt;/h2&gt;
+
+&lt;p&gt;Because &lt;code&gt;puts&lt;/code&gt; and &lt;code&gt;console.log&lt;/code&gt; only take you so far.  In the Ruby world, I
+highly recommend Pry and encourage you to check out &lt;a href="https://www.youtube.com/watch?v=D9j_Mf91M0I"&gt;this
+video&lt;/a&gt; of how much you can do with
+it.&lt;/p&gt;
+
+&lt;h2&gt;Learn Some SQL and Understand Database Normalization&lt;/h2&gt;
+
+&lt;p&gt;Learning SQL gives you the power to explore your data and get a better &amp;ldquo;feel&amp;rdquo;
+for it in addition to answering questions about it or providing novel insights
+about patterns or structure therein. Personally, I find it fun because the
+problem space contains many small but useful problems through the solving of
+which you can learn new techniques very quickly. The important parts of the
+grammar can be learned in a couple afternoons.&lt;/p&gt;
+
+&lt;p&gt;I also think you should understand how to model your domain in a relational
+database. Understanding the &lt;a href="http://www.essentialsql.com/get-ready-to-learn-sql-8-database-first-normal-form-explained-in-simple-english/"&gt;First, Second, and Third Normal Forms&lt;/a&gt; will help you
+with this. In many cases, you will deviate from these in the service of speed
+optimzation, but with this base knowledge you will understand the tradeoffs
+you&amp;rsquo;re making.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;rsquo;re a Rails developer, make an effort to sharpen your understanding of
+the database table and foreign key conventions for the
+various Active Record relationship types and why they are that way with respect
+to the methods that each relationship type adds to the involved models.&lt;/p&gt;
+
+&lt;h2&gt;Understand Promises&lt;/h2&gt;
+
+&lt;p&gt;I promise this article is almost over.&lt;/p&gt;
+
+&lt;p&gt;But the &lt;a href="https://spring.io/understanding/javascript-promises"&gt;promises&lt;/a&gt; I&amp;rsquo;m
+talking about are data structures that represent the eventual result of an
+asynchronous operation. They are heavily used in modern JavaScript, especially
+as a representation of an HTTP request.&lt;/p&gt;
+
+&lt;h2&gt;Learn Flexbox&lt;/h2&gt;
+
+&lt;p&gt;Flexbox is a new-ish part of CSS that allows you to lay out elements of a web
+page using a pretty different model from what came before.  In my opinion it&amp;rsquo;s
+more intuitive and more flexible (natch), and incidentally is the model behind
+laying out screens in React Native, if that&amp;rsquo;s something you want to get into.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a nice &lt;a href="https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties"&gt;visual guide&lt;/a&gt;
+(warning - very heavy page).&lt;/p&gt;
+
+&lt;p&gt;This recommendation feels a little too specific, but my rationale is that if you
+do any front-end work you&amp;rsquo;re going to be sinking a lot of time into learning
+CSS, and I think Flexbox pays some nice dividends.&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Learning flexbox is fun!&lt;br&gt;&lt;br&gt;🏰💣 &lt;a href="https://t.co/ANAdTFlIfT"&gt;https://t.co/ANAdTFlIfT&lt;/a&gt; 🆕&lt;br&gt;&lt;br&gt;🐸🍀 &lt;a href="https://t.co/KHIxQstp0q"&gt;https://t.co/KHIxQstp0q&lt;/a&gt;&lt;br&gt;&lt;br&gt;🕑5⃣ &lt;a href="https://t.co/xk1BWg74Lr"&gt;https://t.co/xk1BWg74Lr&lt;/a&gt;&lt;/p&gt;&amp;mdash; Una Kravets (@Una) &lt;a href="https://twitter.com/Una/status/707248756119330816"&gt;March 8, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;Be aware, though, while browser support for flexbox is &lt;a href="http://caniuse.com/#feat=flexbox"&gt;over
+95%&lt;/a&gt;, your company may require you to support
+browser versions that do not support flexbox.&lt;/p&gt;
+
+&lt;h2&gt;Resist The Urge To Be Clever&lt;/h2&gt;
+
+&lt;p&gt;As you learn exciting new tools, abstractions, and techniques, you&amp;rsquo;ll be
+tempted to use them liberally and as soon as possible.  I don&amp;rsquo;t want to totally
+discourage that, but trust me on this: if it took 100% of your brainpower to
+write it, it will take more than that to debug it later.  Ask yourself, &amp;ldquo;Am I
+doing this to make the code simpler?  If not, how is it better?&amp;rdquo;  If this
+answer is &amp;ldquo;because it uses technique X, and technique X is all the rage right
+now&amp;rdquo;, then it&amp;rsquo;s the wrong answer.&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&amp;ldquo;Any technique, however worthy and desirable, becomes a disease when the mind is obsessed with it.&amp;rdquo; - Bruce Lee&lt;/p&gt;&amp;mdash; Eric Farkas (@ericfarkas) &lt;a href="https://twitter.com/ericfarkas/status/561169923897323520"&gt;January 30, 2015&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;My favorite trait in a software engineer is an unwillingness to suffer complexity.&lt;/p&gt;&amp;mdash; Brandon Bloom (@BrandonBloom) &lt;a href="https://twitter.com/BrandonBloom/status/745717252058583041"&gt;June 22, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;h2&gt;Get Inspired&lt;/h2&gt;
+
+&lt;p&gt;Here&amp;rsquo;s just a few videos, talks, books and posts that have inspired me over the years:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://vimeo.com/24715531"&gt;Ira Glass on Storytelling&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=zDEpeWQHtFU"&gt;Real Software Engineering&lt;/a&gt; by Glenn Vanderburg&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.amazon.com/dp/B01FIPHEXM/ref=dp-kindle-redirect?_encoding=UTF8&amp;amp;btkr=1"&gt;The Dream Machine: JCR Licklider and the Revolution That Made Computing Personal&lt;/a&gt; by Mitchell Waldrop&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.amazon.com/How-Solve-Mathematical-Princeton-Science/dp/069116407X/ref=dp_ob_title_bk"&gt;How To Solve It&lt;/a&gt; by George Pólya&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=bSfe5M_zG2s"&gt;PyCon 2016 Keynote&lt;/a&gt; by K Lars Lohn&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.infoq.com/presentations/Simple-Made-Easy"&gt;Simple Made Easy&lt;/a&gt; by Rich Hickey&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=oF3oViELrZw"&gt;Grit and Determination&lt;/a&gt; by Sandi Metz&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://medium.com/hackerpreneur-magazine/science-fiction-and-design-866178c1739e#.v3cbo712p"&gt;Science Fiction and
+Design&lt;/a&gt;
+by Jesse Kriss&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Master your craft - From &amp;ldquo;Jiro Dreams of Sushi&amp;rdquo; &lt;a href="http://t.co/66Tpb5fNtk"&gt;pic.twitter.com/66Tpb5fNtk&lt;/a&gt;&lt;/p&gt;&amp;mdash; Athletic Performance (@BU_Iron_Bear) &lt;a href="https://twitter.com/BU_Iron_Bear/status/447556423736504320"&gt;March 23, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+</content>
+  </entry>
   <entry>
     <title>SVG icons with mask-image</title>
     <link rel="alternate" href="http://blog.url.com/2016/11/01/svg-icons-with-mask-image.html"/>
@@ -265,20 +611,6 @@ rulers to divert attention from their miserable state.  &amp;ldquo;We had to div
 attention of the masses from material to moral values&amp;rdquo;, Dr. Ley once explained,
 &amp;ldquo;It is more important to feed the souls of men than their stomachs.&amp;rdquo;&lt;/p&gt;
 &lt;/blockquote&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Clojure snippet for transforming a list of maps to a map keyed by the :id of each</title>
-    <link rel="alternate" href="http://blog.url.com/2016/06/15/clojure-snippet-for-transforming-a-list-of-maps-to-a-map-keyed-by-the-id-of-each.html"/>
-    <id>http://blog.url.com/2016/06/15/clojure-snippet-for-transforming-a-list-of-maps-to-a-map-keyed-by-the-id-of-each.html</id>
-    <published>2016-06-14T21:54:00-07:00</published>
-    <updated>2016-06-14T21:55:40-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h2&gt;Transforming a list of maps to a map keyed by the :id of each&lt;/h2&gt;
-&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;into&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;juxt&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;:id&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;identity&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;coll&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 </content>
   </entry>
 </feed>
