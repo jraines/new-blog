@@ -26,7 +26,7 @@ This post is my attempt to provide that advice.
 ## Get Comfortable With Being Uncomfortable
 
 When I was a competitive swimmer in college, I was basically sore about 95% of
-the time. Just like your body, your mind must be challenge to adapt to the
+the time. Just like your body, your mind must be challenged to adapt to the
 specific stresses you're going to put on it. As a developer, for at least the
 first half decade of your career and probably longer, you will live at the
 boundary of your ability to grasp all the concepts needed for your work and your
