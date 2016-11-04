@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/2016/11/04/how-to-go-from-beginner-to-intermediate-web-developer.html"/>
     <id>http://blog.url.com/2016/11/04/how-to-go-from-beginner-to-intermediate-web-developer.html</id>
     <published>2016-11-03T21:03:00-07:00</published>
-    <updated>2016-11-04T12:12:27-07:00</updated>
+    <updated>2016-11-04T12:19:55-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -162,7 +162,7 @@ bisect&lt;/code&gt; when tracking down the commit that introduced some bug.&lt;/
 &lt;li&gt;Use &lt;code&gt;git add -p&lt;/code&gt; for when you forget the above advice about keeping commits small and conceptually unitary. It will let you make them so, after the fact.&lt;/li&gt;
 &lt;li&gt;Understand what rebase does.&lt;/li&gt;
 &lt;li&gt;Know how to use &lt;code&gt;git rebase --interactive&lt;/code&gt; beyond just squashing.&lt;/li&gt;
-&lt;li&gt;Rebase frequently if master is your base branch is master or another shared
+&lt;li&gt;Rebase frequently if your base branch is master or another shared
 branch.&lt;/li&gt;
 &lt;li&gt;Write &lt;a href="http://chris.beams.io/posts/git-commit/"&gt;good commit messages&lt;/a&gt; unless you&amp;rsquo;re 100% sure they&amp;rsquo;ll be removed in
 rebase.&lt;/li&gt;
