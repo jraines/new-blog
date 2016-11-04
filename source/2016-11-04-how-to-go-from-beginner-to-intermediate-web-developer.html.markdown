@@ -138,7 +138,7 @@ Also,
 - Use `git add -p` for when you forget the above advice about keeping commits small and conceptually unitary. It will let you make them so, after the fact.
 - Understand what rebase does.
 - Know how to use `git rebase --interactive` beyond just squashing.
-- Rebase frequently if master is your base branch is master or another shared
+- Rebase frequently if your base branch is master or another shared
   branch.
 - Write [good commit messages](http://chris.beams.io/posts/git-commit/) unless you're 100% sure they'll be removed in
   rebase.
