@@ -33,8 +33,11 @@ $photo:     "/images/jr.jpg"
   a
     margin-right: 6px
 
+.article-date
+  margin-right: 12px
+
 code
-  background: #fbebc2
+  background: darken(#fbebc2, 4%)
 
 body
   font-family: Arial, sans-serif
@@ -42,7 +45,7 @@ body
   //color: darken(#657B83, 5%)
   color: black
   font-size: 16px
-  line-height: 28px
+  line-height: 23px
 
 a
   i
@@ -74,23 +77,26 @@ a
 
 #byline
   font-style: italic
-  text-align: center
   padding: 10px 0 25px 0
+  text-align: center
+  color: $green
+  font-size: 87.25%
   a
     font-style: normal
 
 p
   margin-bottom: 26px
 
+pre
+  white-space: pre-wrap
+
 .highlight
-  min-width: 700px
+  width: 100%
   display: inline-block
-  padding: 10px
+  word-wrap: normal
+  padding: 12px
   margin: 5px 0 15px 0
-  background: darken(#FDF6E3, 7%)
-  -webkit-border-radius: 6px
-  -moz-border-radius: 6px
-  border-radius: 6px
+  background: darken(#FDF6E3, 8%)
 
 #mapicon-wrapper
   border: 3px green solid
@@ -116,10 +122,12 @@ p
 
 
 #main
-  width: 725px
+  width: 740px
   margin: auto
   margin-top: 20px
-  padding: 10px
+  padding: 32px
+  background: lighten(#fbebc2, 3.5%)
+  border: 3px darken(#fbebc2, 2.5%) solid
   ul
     margin-bottom: 16px
   li
@@ -129,10 +137,9 @@ p
     padding-left: 2em
 
   ul.articles li
-    list-style-type: circle
-    list-style-position: inside
+    list-style-type: none
     text-indent: 0
-    padding-top: 0.25vh
+    padding-top: 0.35vh
     padding-left: 0
 
   blockquote
@@ -159,9 +166,12 @@ p
 
   h1
     color: $orange
-    font-size: 32px
-    padding: 18px 0 22px 0
-    line-height: 1.2em
+    font-size: 36px
+    text-align: center
+    padding: 18px
+    margin-bottom: 20px
+    //background: #fbebc2
+    line-height: 1.25em
     font-weight: bold
 
   .twitter-tweet

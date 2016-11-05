@@ -6,6 +6,12 @@ tags:
 
 # How To Go From Beginner To Intermediate Web Developer
 
+<div id="bio-photo" style="display: block; margin: 0 auto;"></div>
+<div id="byline">
+  Posted November 4, 2016 by <a href="/"> Jeremy Raines </a>
+</div>
+
+
 A developer bootcamp grad who is a little more than six months into their first
 developer job recently asked me how they can go from a beginner to an
 intermediate level.

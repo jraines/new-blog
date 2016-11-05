@@ -9,7 +9,7 @@
 <ul class='articles'>
   <% blog.articles[0...100].each do |article| %>
      <% next if article.tags.include? 'chain'  %>
-     <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e, %4Y') %></span></li>
+     <li><span class="article-date"><%= article.date.strftime('%m.%4Y') %></span><%= link_to article.title, article %> </li>
   <% end %>
 
 </ul>
@@ -18,7 +18,7 @@
 <ul class='articles'>
   <% blog.articles[0...100].each do |article| %>
      <% next unless article.tags.include? 'chain'  %>
-     <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e, %4Y') %></span></li>
+     <li><span class="article-date"><%= article.date.strftime('%m.%4Y') %></span><%= link_to article.title, article %> </li>
   <% end %>
 
 </ul>
