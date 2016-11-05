@@ -14,11 +14,17 @@
     <link rel="alternate" href="http://blog.url.com/2016/11/04/how-to-go-from-beginner-to-intermediate-web-developer.html"/>
     <id>http://blog.url.com/2016/11/04/how-to-go-from-beginner-to-intermediate-web-developer.html</id>
     <published>2016-11-03T21:03:00-07:00</published>
-    <updated>2016-11-04T12:19:55-07:00</updated>
+    <updated>2016-11-05T14:03:07-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
     <content type="html">&lt;h1&gt;How To Go From Beginner To Intermediate Web Developer&lt;/h1&gt;
+
+&lt;div id="bio-photo" style="display: block; margin: 0 auto;"&gt;&lt;/div&gt;
+
+&lt;div id="byline"&gt;
+  Posted November 4, 2016 by &lt;a href="/"&gt; Jeremy Raines &lt;/a&gt;
+&lt;/div&gt;
 
 &lt;p&gt;A developer bootcamp grad who is a little more than six months into their first
 developer job recently asked me how they can go from a beginner to an
