@@ -14,7 +14,7 @@ $violet:    #6c71c4
 $blue:      #268bd2
 $cyan:      #2aa198
 $green:     #859900
-$photo:     "/images/jr.png"
+$photo:     "/images/jr.jpg"
 
 *
   margin: 0
@@ -29,7 +29,9 @@ $photo:     "/images/jr.png"
 
 #icons
   display: inline-block
-  margin-left: 40px
+  margin-left: 30px
+  a
+    margin-right: 6px
 
 code
   background: #fbebc2
@@ -62,10 +64,13 @@ a
   height: 80px
   width: 80px
   border-radius: 40px
+  border: 1px $orange solid
+  margin-right: 18px
+  margin-bottom: 12px
   -webkit-border-radius: 40px
   -moz-border-radius: 40px
-  background: url($photo) center center no-repeat
-  background-size: 80px
+  background: url($photo) -40px -64px no-repeat
+  background-size: 148px
 
 #byline
   font-style: italic
@@ -109,6 +114,7 @@ p
   100%
     background: green
 
+
 #main
   width: 725px
   margin: auto
@@ -120,7 +126,14 @@ p
     list-style-type: disc
     list-style-position: inside
     text-indent: -2em
-    padding-left: 1em
+    padding-left: 2em
+
+  ul.articles li
+    list-style-type: circle
+    list-style-position: inside
+    text-indent: 0
+    padding-top: 0.25vh
+    padding-left: 0
 
   blockquote
     font-style: italic
@@ -169,6 +182,8 @@ p
     color: $violet
     font-size: 22px
     padding: 16px 0 0 0
+    &.index-h4
+      padding: 16px 0
 
 hr
   margin-bottom: 15px
