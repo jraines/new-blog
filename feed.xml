@@ -5,10 +5,54 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2016-11-03T21:03:00-07:00</updated>
+  <updated>2016-11-29T13:40:00-08:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Specter Cookbook Part I</title>
+    <link rel="alternate" href="http://blog.url.com/2016/11/29/specter-cookbook-part-i.html"/>
+    <id>http://blog.url.com/2016/11/29/specter-cookbook-part-i.html</id>
+    <published>2016-11-29T13:40:00-08:00</published>
+    <updated>2017-01-02T13:09:36-08:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h3&gt;Conditionally replacing the last list in a list of lists&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Problem&lt;/em&gt;: I have a list of file names and their sizes, and I need to break them
+up into a list of lists, such that each sub-list is under 30mb in total size.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Solution&lt;/em&gt;: I modeled it as a reduction, where &lt;code&gt;[[]]&lt;/code&gt; is the starting value and
+each step either adds a file to the last vector, or, if it won&amp;rsquo;t &amp;lsquo;fit&amp;rsquo;, adds a
+new vector into the outer vector with just the current file in it.&lt;/p&gt;
+
+&lt;p&gt;Using Specter for the former case eliminated some annoying initial condition
+checking and is just more concise.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="highlight clojure"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;defn&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;add-to-last-chunk&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;acc&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;sp/transform&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;sp/LAST&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;#&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;conj&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;%&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;acc&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+
+
+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;defn&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;chunk-size&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;chnk&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;reduce&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;second&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;chnk&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;&lt;span class="w"&gt;
+
+
+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;defn&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;chunker&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;acc&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;filepath&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;current-chunk&lt;/span&gt;&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;last&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;acc&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+        &lt;/span&gt;&lt;span class="n"&gt;current-chunk-size&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;chunk-size&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;current-chunk&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+        &lt;/span&gt;&lt;span class="n"&gt;next-chunk-size&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;current-chunk-size&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;&lt;span class="w"&gt;
+    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;&amp;lt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;max-chunk-size&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;next-chunk-size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+      &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;conj&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;acc&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;filepath&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt;&lt;span class="w"&gt;
+      &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;add-to-last-chunk&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;acc&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;filepath&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;]))))&lt;/span&gt;&lt;span class="w"&gt;
+
+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;chunked&lt;/span&gt;&lt;span class="w"&gt;
+  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;reduce&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;chunker&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[[]]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;files-with-sizes&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>How To Go From Beginner To Intermediate Web Developer</title>
     <link rel="alternate" href="http://blog.url.com/2016/11/04/how-to-go-from-beginner-to-intermediate-web-developer.html"/>
@@ -561,62 +605,6 @@ from all of that outfit&amp;rsquo;s associated items.&lt;/p&gt;
 &lt;h2&gt;7) Get list of all databases and their users&lt;/h2&gt;
 
 &lt;p&gt;In psql:  &lt;code&gt;\l&lt;/code&gt;&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Selected quotations from The Rise and Fall of the Third Reich</title>
-    <link rel="alternate" href="http://blog.url.com/2016/08/05/selected-quotations-from-the-rise-and-fall-of-the-third-reich.html"/>
-    <id>http://blog.url.com/2016/08/05/selected-quotations-from-the-rise-and-fall-of-the-third-reich.html</id>
-    <published>2016-08-05T07:01:00-07:00</published>
-    <updated>2016-09-26T13:57:12-07:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;h2&gt;On the German Right&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;If the German Republic was bereft of a middle-of-the-road political class, it
-also lacked that stability provided in many other countries by a truly
-conservative party&amp;hellip; . at almost all times during the Weimar regime, they
-refused to take responsible positions either in government or in opposition . .
-. What [they] wanted was an end to the Republic and a return to an imperialist
-Germany in which all of their old privileges would be restored.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2&gt;On the danger of access to state power&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;For the first time&amp;ndash;in the last relatively free election Germany was to
-have&amp;ndash;the Nazi Party now could employ all the vast resources of the government
-to win votes.  &amp;ldquo;Now it will be easy&amp;rdquo;, Goebbels wrote in his journal, &amp;ldquo;to carry
-on the fight, for we can call on all the resources of the State.  Radio and
-press are at our disposal.  We shall stage a masterpiece of propaganda.&amp;rdquo;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2&gt;On life under an effective propaganda regime&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Often in a German home or office, or sometimes in a casual conversation with a
-stranger in a restaurant, a beer hall, a cafe, I would meet with the most
-outlandish assertions from seemingly educated and intelligent persons.  It was
-obvious they were parroting some piece of nonsense they had heard on the radio
-or read in the newspapers.  Sometimes one was tempted to say as much, but on
-such occasions one was met with such a stare of incredulity, such a shock of
-silence, as if one had blasphemed the Almighty, that one realized how useless it
-was to even try to make contact with a mind which had become warped and for
-whom the facts of life had become what Hitler and Goebbels, with their cynical
-disregard for truth, said they were.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2&gt;On the appeal of facsism to a beleagured working class&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Tied down by so many controls at wages little above the subsistence level, the
-German workers, like the Roman proletariat, were provided with circuses by their
-rulers to divert attention from their miserable state.  &amp;ldquo;We had to divert the
-attention of the masses from material to moral values&amp;rdquo;, Dr. Ley once explained,
-&amp;ldquo;It is more important to feed the souls of men than their stomachs.&amp;rdquo;&lt;/p&gt;
-&lt;/blockquote&gt;
 </content>
   </entry>
 </feed>

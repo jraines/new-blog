@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <link href="../../../stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/main.css" rel="stylesheet" type="text/css" />
+
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Jeremy Raines - Specter Cookbook Part I</title>
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+  </head>
+  <body>
+    <div id="main" role="main">
+      <h3>Conditionally replacing the last list in a list of lists</h3>
+
+<p><em>Problem</em>: I have a list of file names and their sizes, and I need to break them
+up into a list of lists, such that each sub-list is under 30mb in total size.</p>
+
+<p><em>Solution</em>: I modeled it as a reduction, where <code>[[]]</code> is the starting value and
+each step either adds a file to the last vector, or, if it won&rsquo;t &lsquo;fit&rsquo;, adds a
+new vector into the outer vector with just the current file in it.</p>
+
+<p>Using Specter for the former case eliminated some annoying initial condition
+checking and is just more concise.</p>
+<pre><code class="highlight clojure"><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">add-to-last-chunk</span><span class="w">
+  </span><span class="p">[</span><span class="n">acc</span><span class="w"> </span><span class="n">v</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nf">sp/transform</span><span class="w"> </span><span class="p">[</span><span class="n">sp/LAST</span><span class="p">]</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nb">conj</span><span class="w"> </span><span class="n">%</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="n">acc</span><span class="p">))</span><span class="w">
+
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">chunk-size</span><span class="w">
+  </span><span class="p">[</span><span class="n">chnk</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nb">reduce</span><span class="w"> </span><span class="nb">+</span><span class="w"> </span><span class="p">(</span><span class="nb">map</span><span class="w"> </span><span class="nb">second</span><span class="w"> </span><span class="n">chnk</span><span class="p">)))</span><span class="w">
+
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">chunker</span><span class="w">
+  </span><span class="p">[</span><span class="n">acc</span><span class="w"> </span><span class="p">[</span><span class="n">filepath</span><span class="w"> </span><span class="n">size</span><span class="p">]]</span><span class="w">
+  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[</span><span class="n">current-chunk</span><span class="w">       </span><span class="p">(</span><span class="nb">last</span><span class="w"> </span><span class="n">acc</span><span class="p">)</span><span class="w">
+        </span><span class="n">current-chunk-size</span><span class="w">  </span><span class="p">(</span><span class="nf">chunk-size</span><span class="w"> </span><span class="n">current-chunk</span><span class="p">)</span><span class="w">
+        </span><span class="n">next-chunk-size</span><span class="w">     </span><span class="p">(</span><span class="nb">+</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="n">current-chunk-size</span><span class="p">)]</span><span class="w">
+    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">&lt;</span><span class="w"> </span><span class="n">max-chunk-size</span><span class="w"> </span><span class="n">next-chunk-size</span><span class="p">)</span><span class="w">
+      </span><span class="p">(</span><span class="nb">conj</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="p">[[</span><span class="n">filepath</span><span class="w"> </span><span class="n">size</span><span class="p">]])</span><span class="w">
+      </span><span class="p">(</span><span class="nf">add-to-last-chunk</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="p">[</span><span class="n">filepath</span><span class="w"> </span><span class="n">size</span><span class="p">]))))</span><span class="w">
+
+</span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">chunked</span><span class="w">
+  </span><span class="p">(</span><span class="nb">reduce</span><span class="w"> </span><span class="n">chunker</span><span class="w"> </span><span class="p">[[]]</span><span class="w"> </span><span class="n">files-with-sizes</span><span class="p">))</span><span class="w">
+</span></code></pre>
+
+    </div>
+  </body>
+</html>
